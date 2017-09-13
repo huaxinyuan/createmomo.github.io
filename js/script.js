@@ -59,7 +59,7 @@
             '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
             '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
             '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-			'<a href="http://service.weibo.com/share/share.php?&language=zh_cn&url=' + encodedUrl + '" class="article-share-sina" target="_blank" title="Weibo"></a>',
+			'<a href="http://service.weibo.com/share/share.php?title=分享&language=zh_cn&url=' + encodedUrl + '" class="article-share-sina" target="_blank" title="Weibo"></a>',
 			'<a href="http://qr.liantu.com/api.php?text=' + encodedUrl + '" class="article-share-wechat" target="_blank" title="WeChat"></a>',
 		  '</div>',
         '</div>'
