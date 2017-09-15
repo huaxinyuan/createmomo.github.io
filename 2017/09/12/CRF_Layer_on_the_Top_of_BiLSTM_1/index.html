@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2.jpg">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-3.jpg">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-4.jpg">
-<meta property="og:updated_time" content="2017-09-15T20:59:44.148Z">
+<meta property="og:updated_time" content="2017-09-15T22:14:52.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 1">
 <meta name="twitter:description" content="OutlineThe article series will include:  Introduction - the general idea of the CRF layer on the top of BiLSTM for named entity recognition tasks A Detailed Example -  a toy example to explain how CRF">
@@ -112,11 +112,9 @@
 <p>As shown in the picture below:</p>
 <ul>
 <li><strong>Firstly</strong>, every word in sentence $x$ is represented as a vector which includes the word’s character embedding and word embedding. The character embedding is initialized randomly. The word embedding usually is from a pre-trained word embedding file. All the embeddings will be fine-tuned during the training process.</li>
-<li><p><strong>Second</strong>, the inputs of BiLSTM-CRF model are those embeddings and the outputs are predicted labels for words in sentence $x$. </p>
-</li>
-<li><p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1.jpg" alt="Figure 1.1: BiLSTM-CRF model"></p>
-</li>
+<li><strong>Second</strong>, the inputs of BiLSTM-CRF model are those embeddings and the outputs are predicted labels for words in sentence $x$. </li>
 </ul>
+<p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1.jpg" alt="Figure 1.1: BiLSTM-CRF model"></p>
 <p>Although, it is not necessary to know the details of BiLSTM layer, in order to understand the CRF layer more easily, we have to know what is the meaning of the output of BiLSTM Layer.</p>
 <p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2.jpg" alt="Figure 1.2: The meaning of outputs of BiLSTM layer"></p>
 <p>The picture above illustrates that the outputs of BiLSTM layer are the scores of each label. For example, for $w_0$，the outputs of BiLSTM node are 1.5 (B-Person), 0.9 (I-Person), 0.1 (B-Organization), 0.08 (I-Organization) and 0.05 (O). These scores will be the inputs of the CRF layer.</p>
@@ -142,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cj7mftn6g0000b0p046m5o2qq" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cj7mfznn30000i8p03hvorqcg" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -242,22 +240,6 @@
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
