@@ -3,15 +3,21 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>CreateMoMo</title>
+  <title>CRF Layer on the Top of BiLSTM - 2 | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="CreateMoMo">
-<meta property="og:url" content="http://createmomo.github.io/index.html">
+  <meta name="description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRF Layer on the Top of BiLSTM - 2">
+<meta property="og:url" content="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/index.html">
 <meta property="og:site_name" content="CreateMoMo">
+<meta property="og:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/CRF-LAYER-2.jpg">
+<meta property="og:updated_time" content="2017-09-23T17:00:35.435Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CreateMoMo">
+<meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 2">
+<meta name="twitter:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
+<meta name="twitter:image" content="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/CRF-LAYER-2.jpg">
   
   
     <link rel="icon" href="/favicon.png">
@@ -56,9 +62,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-CRF_Layer_on_the_Top_of_BiLSTM_2" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-CRF_Layer_on_the_Top_of_BiLSTM_2" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" class="article-date">
   <time datetime="2017-09-23T11:04:57.320Z" itemprop="datePublished">2017-09-23</time>
@@ -71,8 +75,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/">CRF Layer on the Top of BiLSTM - 2</a>
+    <h1 class="article-title" itemprop="name">
+      CRF Layer on the Top of BiLSTM - 2
     </h1>
   
 
@@ -88,12 +92,51 @@
 <li>“O I-label” is invalid. The first label of one named entity should start with “B-“ not “I-“, in other words, the valid pattern should be “O B-label”</li>
 <li>…</li>
 </ul>
-<p>After you read this article, you will know why the CRF layer can learn those constrains.<br></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/#more">Read More</a>
-          </p>
-        
+<p>After you read this article, you will know why the CRF layer can learn those constrains.<br><a id="more"></a></p>
+<h2 id="2-CRF-Layer"><a href="#2-CRF-Layer" class="headerlink" title="2. CRF Layer"></a>2. CRF Layer</h2><p>In the loss function of CRF layer, we have two types of score.</p>
+<p>The first one is the emission score. These emission scores come from the BiLSTM layer. As shown in figure 2.1, for example, the score of $ w_0 $ labeled as B-Person is 1.5.<br><img src="/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/CRF-LAYER-2.jpg" alt="Figure 2.1: the emission scores come from the BiLSTM layer"></p>
+<p>For convenience, we will give each label a index number as shown in the table below.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Label</th>
+<th style="text-align:right">Index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">B-Person</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td style="text-align:left">I-Person</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td style="text-align:left">B-Organization</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td style="text-align:left">I-Organization</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td style="text-align:left">O</td>
+<td style="text-align:right">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We use $ x_{iy_j} $ to represent the emission score. $ i $ is the index of word and $ y_j $ is the index of label. For instance, according the figure 2.1, $ x_{i=1,y_j=2} = x_{w_1,B-Organization} = 0.1$ which means the score of $ w_1 $ as B-Organization is 0.1.</p>
+<h3 id="2-2-Transition-score"><a href="#2-2-Transition-score" class="headerlink" title="2.2 Transition score"></a>2.2 Transition score</h3><p>We use $ t_{y_iy_j} $ to represent a transition score. For example, $ t_{B-Person, I-Person} = 0.9$ means the score of label transition $ B-Person \rightarrow I-Person$ is 0.9. Therefore, we have a transition score matrix which stores all the scores between all the labels.</p>
+<p>In order to make the transition score matrix more robust, we will add two more labels, START and END. START means the start of a sentence, NOT the first word. END means the end of sentence. If you still feel confused, after reading the following table, you will understant them.</p>
+<p>Here is an example of the transition matrix score.<br>|  |     |START|    B-Person |    I-Person |   B-Organization |I-Organization|O|END|<br>| :———— | ————:|<br>| START  | 0 |0.8|0.007|0.7|0.0008|0.9|0.08<br>| B-Person  | 0 |<br>| I-Person     |   1 |<br>| B-Organization      |    2 |<br>| I-Organization      |    3 |<br>| O      |    4 |<br>| END  | 0 |</p>
+<h3 id="2-3-Real-path-score"><a href="#2-3-Real-path-score" class="headerlink" title="2.3 Real path score"></a>2.3 Real path score</h3><h3 id="2-4-The-score-of-all-the-possible-paths"><a href="#2-4-The-score-of-all-the-possible-paths" class="headerlink" title="2.4 The score of all the possible paths"></a>2.4 The score of all the possible paths</h3><h3 id="2-5-CRF-loss-function"><a href="#2-5-CRF-loss-function" class="headerlink" title="2.5 CRF loss function"></a>2.5 CRF loss function</h3><h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1]  Lample, G., Ballesteros, M., Subramanian, S., Kawakami, K. and Dyer, C., 2016. Neural architectures for named entity recognition. arXiv preprint arXiv:1603.01360.<br><a href="https://arxiv.org/abs/1603.01360" target="_blank" rel="external">https://arxiv.org/abs/1603.01360</a></p>
+<blockquote>
+<p>When you reprint or distribute this article, please include the original link address.</p>
+</blockquote>
+
       
     </div>
     <footer class="article-footer">
@@ -105,65 +148,26 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-CRF_Layer_on_the_Top_of_BiLSTM_1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" class="article-date">
-  <time datetime="2017-09-12T21:45:22.027Z" itemprop="datePublished">2017-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/">CRF Layer on the Top of BiLSTM - 1</a>
-    </h1>
+    <a href="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CRF Layer on the Top of BiLSTM - 1</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Outline"><a href="#Outline" class="headerlink" title="Outline"></a>Outline</h2><p>The article series will include:</p>
-<ul>
-<li><strong>Introduction</strong> - the general idea of the CRF layer on the top of BiLSTM for named entity recognition tasks</li>
-<li><strong>A Detailed Example</strong> -  a toy example to explain how CRF layer works step-by-step</li>
-<li><strong>Chainer Implementation</strong> - a chainer implementation of the CRF Layer </li>
-</ul>
-<blockquote>
-<p><strong>Who could be the readers of this article series?</strong><br>This article series is for students or someone else who is the beginner of natural language processing or any other AI related areas, I hope you can find what you do want to know from my articles. Moreover, please be free to provide any comments or suggestions to improve the series.</p>
-</blockquote>
-<h2 id="Prior-Knowledge"><a href="#Prior-Knowledge" class="headerlink" title="Prior Knowledge"></a>Prior Knowledge</h2><p>The <strong>only thing</strong> you need to know is what is Named Entity Recognition. If you do not know neural networks, CRF or any other related knowledge, please <strong>DO NOT</strong> worry about that. I will explain everything as intuitive as possible.</p>
-<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><p>For a named entity recognition task, neural network based methods are very popular and common. For example, this <a href="https://arxiv.org/abs/1603.01360" target="_blank" rel="external">paper[1]</a> proposed a BiLSTM-CRF named entity recognition model which used word and character embeddings. I will take the model in this paper for an example to explain how CRF Layer works.</p>
-<p>If you do not know the details of BiLSTM and CRF, just remember they are two different layers in a named entity recognition model.<br></p>
-        
-          <p class="article-more-link">
-            <a href="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cj7xkail00000y0p0lesq8pfb" class="article-share-link">Share</a>
-      
-        <a href="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
 
 
-  
-
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -229,11 +233,13 @@
 <script>
   var disqus_shortname = 'createmomo';
   
+  var disqus_url = 'http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
