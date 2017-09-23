@@ -13,7 +13,7 @@
 <meta property="og:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/CRF-LAYER-2.jpg">
-<meta property="og:updated_time" content="2017-09-23T18:00:01.633Z">
+<meta property="og:updated_time" content="2017-09-23T18:14:41.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 2">
 <meta name="twitter:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
@@ -229,9 +229,9 @@
 </ul>
 <p>You may want to ask a question about the matrix. <strong>Where or how to get the transition matrix?</strong></p>
 <p>Actually, the matrix is a paramer of a BiLSTM-CRF model. Before you train the model, you could initialize all the transition scores in the matrix randomly. All the random scores will be updated automatically during your training process. In other words, the CRF layer can learn those constraints by itself. We do not need to build the matrix manually. The scores will be more and more reasonable gradually with increasing training iterations.</p>
-<h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h4 id="2-5-CRF-loss-function"><a href="#2-5-CRF-loss-function" class="headerlink" title="2.5 CRF loss function"></a>2.5 CRF loss function</h4><p>Introduction of CRF loss function which is consist of the real path score and the total score of all the possible paths.</p>
-<h4 id="2-3-Real-path-score"><a href="#2-3-Real-path-score" class="headerlink" title="2.3 Real path score"></a>2.3 Real path score</h4><p>How to calculate the score of the true labels of a sentence. </p>
-<h4 id="2-4-The-score-of-all-the-possible-paths"><a href="#2-4-The-score-of-all-the-possible-paths" class="headerlink" title="2.4 The score of all the possible paths"></a>2.4 The score of all the possible paths</h4><p>How to calculate the total score of all the possible paths of a sentence with a step-by-step toy example.</p>
+<h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h4 id="2-3-CRF-loss-function"><a href="#2-3-CRF-loss-function" class="headerlink" title="2.3 CRF loss function"></a>2.3 CRF loss function</h4><p>Introduction of CRF loss function which is consist of the real path score and the total score of all the possible paths.</p>
+<h4 id="2-4-Real-path-score"><a href="#2-4-Real-path-score" class="headerlink" title="2.4 Real path score"></a>2.4 Real path score</h4><p>How to calculate the score of the true labels of a sentence. </p>
+<h4 id="2-5-The-score-of-all-the-possible-paths"><a href="#2-5-The-score-of-all-the-possible-paths" class="headerlink" title="2.5 The score of all the possible paths"></a>2.5 The score of all the possible paths</h4><p>How to calculate the total score of all the possible paths of a sentence with a step-by-step toy example.</p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1]  Lample, G., Ballesteros, M., Subramanian, S., Kawakami, K. and Dyer, C., 2016. Neural architectures for named entity recognition. arXiv preprint arXiv:1603.01360.<br><a href="https://arxiv.org/abs/1603.01360" target="_blank" rel="external">https://arxiv.org/abs/1603.01360</a></p>
 <blockquote>
 <p>When you reprint or distribute this article, please include the original link address.</p>
@@ -240,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cj7xmhyr00001vcp0aw15e41r" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cj7xmydbs0001e8p0v4yf3oet" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -354,22 +354,6 @@
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
