@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-10-08T00:18:13.242Z">
+<meta property="og:updated_time" content="2017-10-08T00:34:17.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 3">
 <meta name="twitter:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
@@ -131,9 +131,9 @@
 <li>…</li>
 <li><strong>10) START B-Person I-Person O B-Organization O END</strong></li>
 <li>…</li>
-<li>N) O O O O O O O</li>
+<li>N) O O O O O O O<a id="more"></a>
+Suppose every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 + … + P_N = e^{S_1} + e^{S_2} + … + e^{S_N} $, $ e $ is the mathematical constant $ e $. (In section 2.4, we will explain how to calculate $ S_i $, you can also treat it as a score of this path.) </li>
 </ul>
-<p>Suppose every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 + … + P_N = e^{S_1} + e^{S_2} + … + e^{S_N} $, $ e $ is the mathematical constant $ e $. (In section 2.4, we will explain how to calculate $ S_i $, you can also treat it as a score of this path.) </p>
 <p>If we say the 10th path is the real path, in other words, the 10th path is the gold standard labels provided by our training dataset. The score $ P_{10} $ should be the one with the largest percentage in all the possible paths.</p>
 <p>Given the equation which is also <strong>the loss function</strong> below, <strong>during the training process, the parameter values of our BiLSTM-CRF model will be updated again and again to keep increasing the percentage of the score of the real path</strong>.</p>
 <p>$ Loss Function = \frac{P_{RealPath}}{P_1 + P_2 + … + P_N}  $</p>
@@ -150,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8i0fci30000akp09px1va1p" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8i0nxby0000gwp0ytgw5r94" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -268,6 +268,22 @@
 
 <script src="/js/script.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
