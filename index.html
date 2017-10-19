@@ -58,6 +58,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CRF-Layer-on-the-Top-of-BiLSTM-4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" class="article-date">
+  <time datetime="2017-10-17T22:03:39.000Z" itemprop="datePublished">2017-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/">CRF Layer on the Top of BiLSTM - 4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="2-4-Real-path-score"><a href="#2-4-Real-path-score" class="headerlink" title="2.4 Real path score"></a>2.4 Real path score</h4><p>In section 2.3, we supposed that every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 + … + P_N = e^{S_1} + e^{S_2} + … + e^{S_N} $, $ e $ is the mathematical constant $ e $. </p>
+<p>Obviously, there must be a path is the real one among all the possible paths. For exmaple, the real path of the sentence in section 1.2 is <strong>“START B-Person I-Person O B-Organization O END”</strong>. The others are incorrect such as “START B-Person B-Organization O I-Person I-Person B-Person”. $ e^{S_i} $ is the score of $ i^{th} $ path.</p>
+<p>During the training process, the crf loss function only need two scores: the score of the real path and the total score of all the possbile paths. <strong>The proportion of the real path score among the scores of all the possible paths will be increased gradually.</strong></p>
+<p>The calculation of a real path score, $e^{S_i}$, is very straightforward. </p>
+        
+          <p class="article-more-link">
+            <a href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" data-id="cj8z4iwgv0000nop0dkfxot6v" class="article-share-link">Share</a>
+      
+        <a href="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CRF-Layer-on-the-Top-of-BiLSTM-3" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" class="article-date">
@@ -138,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8w5e46o0000x8p01o6xi73k" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8z4iwhc0001nop0t4hoay3b" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -189,7 +235,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cj8w5e4740002x8p0zxv6kq6t" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cj8z4iwhi0003nop07c526a8o" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -243,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cj8w5e46o0001x8p07so6k3r2" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cj8z4iwhg0002nop0tet4aylg" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -283,6 +329,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/">CRF Layer on the Top of BiLSTM - 4</a>
+          </li>
         
           <li>
             <a href="/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/">CRF Layer on the Top of BiLSTM - 3</a>
@@ -344,6 +394,22 @@
 
 <script src="/js/script.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

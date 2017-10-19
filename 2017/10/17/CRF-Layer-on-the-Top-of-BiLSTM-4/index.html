@@ -3,19 +3,19 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
-  <title>CRF Layer on the Top of BiLSTM - 3 | CreateMoMo</title>
+  <title>CRF Layer on the Top of BiLSTM - 4 | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
+  <meta name="description" content="2.4 Real path scoreIn section 2.3, we supposed that every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 +">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CRF Layer on the Top of BiLSTM - 3">
-<meta property="og:url" content="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/index.html">
+<meta property="og:title" content="CRF Layer on the Top of BiLSTM - 4">
+<meta property="og:url" content="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/index.html">
 <meta property="og:site_name" content="CreateMoMo">
-<meta property="og:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
+<meta property="og:description" content="2.4 Real path scoreIn section 2.3, we supposed that every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 +">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-10-12T21:51:39.084Z">
+<meta property="og:updated_time" content="2017-10-19T23:52:20.662Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 3">
-<meta name="twitter:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
+<meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 4">
+<meta name="twitter:description" content="2.4 Real path scoreIn section 2.3, we supposed that every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 +">
   
   
     <link rel="icon" href="/favicon.png">
@@ -60,10 +60,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-CRF-Layer-on-the-Top-of-BiLSTM-3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-CRF-Layer-on-the-Top-of-BiLSTM-4" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" class="article-date">
-  <time datetime="2017-10-07T23:05:31.000Z" itemprop="datePublished">2017-10-08</time>
+    <a href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" class="article-date">
+  <time datetime="2017-10-17T22:03:39.000Z" itemprop="datePublished">2017-10-17</time>
 </a>
     
   </div>
@@ -74,7 +74,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      CRF Layer on the Top of BiLSTM - 3
+      CRF Layer on the Top of BiLSTM - 4
     </h1>
   
 
@@ -82,66 +82,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="2-3-CRF-loss-function"><a href="#2-3-CRF-loss-function" class="headerlink" title="2.3 CRF loss function"></a>2.3 CRF loss function</h4><p>The CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible paths.</p>
-<p>For example, if we have these labels in our dataset as shown in the table:</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Label</th>
-<th style="text-align:right">Index</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">B-Person</td>
-<td style="text-align:right">0</td>
-</tr>
-<tr>
-<td style="text-align:left">I-Person</td>
-<td style="text-align:right">1</td>
-</tr>
-<tr>
-<td style="text-align:left">B-Organization</td>
-<td style="text-align:right">2</td>
-</tr>
-<tr>
-<td style="text-align:left">I-Organization</td>
-<td style="text-align:right">3</td>
-</tr>
-<tr>
-<td style="text-align:left">O</td>
-<td style="text-align:right">4</td>
-</tr>
-<tr>
-<td style="text-align:left">START</td>
-<td style="text-align:right">5</td>
-</tr>
-<tr>
-<td style="text-align:left">END</td>
-<td style="text-align:right">6</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>We also have a sentence which has 5 words. The possible paths could be:</p>
+        <h4 id="2-4-Real-path-score"><a href="#2-4-Real-path-score" class="headerlink" title="2.4 Real path score"></a>2.4 Real path score</h4><p>In section 2.3, we supposed that every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 + … + P_N = e^{S_1} + e^{S_2} + … + e^{S_N} $, $ e $ is the mathematical constant $ e $. </p>
+<p>Obviously, there must be a path is the real one among all the possible paths. For exmaple, the real path of the sentence in section 1.2 is <strong>“START B-Person I-Person O B-Organization O END”</strong>. The others are incorrect such as “START B-Person B-Organization O I-Person I-Person B-Person”. $ e^{S_i} $ is the score of $ i^{th} $ path.</p>
+<p>During the training process, the crf loss function only need two scores: the score of the real path and the total score of all the possbile paths. <strong>The proportion of the real path score among the scores of all the possible paths will be increased gradually.</strong></p>
+<p>The calculation of a real path score, $e^{S_i}$, is very straightforward. </p>
+<a id="more"></a>
+<p>Here we focus on the calculation of $ S_i $.</p>
+<p>Take the real path, <strong>“START B-Person I-Person O B-Organization O END”</strong>, we used before, for example:</p>
 <ul>
-<li>1) START B-Person B-Person B-Person B-Person B-Person END</li>
-<li>2) START B-Person I-Person B-Person B-Person B-Person END</li>
-<li>…</li>
-<li><strong>10) START B-Person I-Person O B-Organization O END</strong></li>
-<li>…</li>
-<li>N) O O O O O O O<a id="more"></a>
+<li>We have a sentence which has 5 words, $w_1, w_2, w_3, w_4, w_5$</li>
+<li>We add two more extra words which denote the start and the end of a sentence, $w_0, w_6$</li>
+<li>$S_i$ consists of 2 parts: $S_i = EmissionScore + TransitionScore $ (The emission and transition score are expanined in section 2.1 and 2.2)</li>
+</ul>
+<p><strong>Emission Score:</strong><br>$EmissionScore=x_{0,START}+x_{1,B-Person}+x_{2,I-Person}+x_{3,O}+x_{4,B-Organization}+x_{5,O}+x_{6,END}$</p>
+<ul>
+<li><p>$ x_{index,label} $ is the score if the $index^{th}$ word is labelled by $ label $</p>
+</li>
+<li><p>These scores $ x_{1,B-Person} $ $ x_{2,I-Person} $ $ x_{3,O} $  $ x_{4,Organization} $  $ x_{5,O} $ are from the previous BiLSTM output.</p>
+</li>
+<li><p>As for the $ x_{0,START} $ and $ x_{6,END} $, we can just set them zeros.</p>
 </li>
 </ul>
-<p>Suppose every possible path has a score $ P_{i} $ and there are totally $ N $ possible paths, the total score of all the paths is $ P_{total} = P_1 + P_2 + … + P_N = e^{S_1} + e^{S_2} + … + e^{S_N} $, $ e $ is the mathematical constant $ e $. (In section 2.4, we will explain how to calculate $ S_i $, you can also treat it as a score of this path.) </p>
-<p>If we say the 10th path is the real path, in other words, the 10th path is the gold standard labels provided by our training dataset. The score $ P_{10} $ should be the one with the largest percentage in all the possible paths.</p>
-<p>Given the equation which is also <strong>the loss function</strong> below, <strong>during the training process, the parameter values of our BiLSTM-CRF model will be updated again and again to keep increasing the percentage of the score of the real path</strong>.</p>
-<p>$ Loss Function = \frac{P_{RealPath}}{P_1 + P_2 + … + P_N}  $</p>
-<p>Now, the questions are:<br>1) How to define the score of a path?<br>2) How to calculate the total score of all possible paths?<br>3) When we calculate the total score, do we have to list all the possible paths? (The answer to this question is NO. )</p>
-<p>In the following sections, we will see how to solve these questions.</p>
-<h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h4 id="2-4-Real-path-score"><a href="#2-4-Real-path-score" class="headerlink" title="2.4 Real path score"></a>2.4 Real path score</h4><p>How to calculate the score of the true labels of a sentence. </p>
-<h4 id="2-5-The-score-of-all-the-possible-paths"><a href="#2-5-The-score-of-all-the-possible-paths" class="headerlink" title="2.5 The score of all the possible paths"></a>2.5 The score of all the possible paths</h4><p>How to calculate the total score of all the possible paths of a sentence with a step-by-step toy example.</p>
+<p><strong>Transition Score:</strong><br>$TransitionScore=$<br>$t_{START-&gt;B-Person} + t_{B-Person-&gt;I-Person} + $<br>$t_{I-Person-&gt;O} + t_{0-&gt;B-Organization} + t_{B-Organization-&gt;O} + t_{O-&gt;END}$</p>
+<ul>
+<li>$t_{label1-&gt;label2}$ is the transition score from $label1$ to $label2$</li>
+<li>These scores come from the CRF Layer. In other words, these transition scores are actually the parameters of CRF Layer.</li>
+</ul>
+<p>To sum up, now we can calculate $S_i$ and as well as the path score $e^{S_i}$. The next step is <strong>how to calculate the total score of all the possible paths?</strong></p>
+<h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h4 id="2-5-The-score-of-all-the-possible-paths"><a href="#2-5-The-score-of-all-the-possible-paths" class="headerlink" title="2.5 The score of all the possible paths"></a>2.5 The score of all the possible paths</h4><p>How to calculate the total score of all the possible paths of a sentence with a step-by-step toy example.</p>
+<p>This section would be one of the most important and a bit difficult part. But DO NOT worry. The toy example given in this section will explain the details as simple as possible.</p>
 <p><strong>(Sorry for my late update, I will try my best to squeeze time for updating the following sections.)</strong></p>
 <h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1]  Lample, G., Ballesteros, M., Subramanian, S., Kawakami, K. and Dyer, C., 2016. Neural architectures for named entity recognition. arXiv preprint arXiv:1603.01360.<br><a href="https://arxiv.org/abs/1603.01360" target="_blank" rel="external">https://arxiv.org/abs/1603.01360</a></p>
 <blockquote>
@@ -151,9 +120,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8z4iwhc0001nop0t4hoay3b" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" data-id="cj8z4iwgv0000nop0dkfxot6v" class="article-share-link">Share</a>
       
-        <a href="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/#disqus_thread" class="article-comment-link">Comments</a>
       
       
     </footer>
@@ -162,19 +131,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          CRF Layer on the Top of BiLSTM - 4
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">CRF Layer on the Top of BiLSTM - 2</div>
+      <div class="article-nav-title">CRF Layer on the Top of BiLSTM - 3</div>
     </a>
   
 </nav>
@@ -261,7 +221,7 @@
 <script>
   var disqus_shortname = 'createmomo';
   
-  var disqus_url = 'http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/';
+  var disqus_url = 'http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/';
   
   (function(){
     var dsq = document.createElement('script');
