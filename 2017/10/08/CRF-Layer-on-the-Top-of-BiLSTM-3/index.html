@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-10-08T00:46:15.017Z">
+<meta property="og:updated_time" content="2017-10-12T21:51:39.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 3">
 <meta name="twitter:description" content="2.3 CRF loss functionThe CRF loss function is consist of the real path score and the total score of all the possible paths. The real path should have the highest score among those of all the possible">
@@ -138,7 +138,7 @@
 <p>If we say the 10th path is the real path, in other words, the 10th path is the gold standard labels provided by our training dataset. The score $ P_{10} $ should be the one with the largest percentage in all the possible paths.</p>
 <p>Given the equation which is also <strong>the loss function</strong> below, <strong>during the training process, the parameter values of our BiLSTM-CRF model will be updated again and again to keep increasing the percentage of the score of the real path</strong>.</p>
 <p>$ Loss Function = \frac{P_{RealPath}}{P_1 + P_2 + … + P_N}  $</p>
-<p>Now, the questions are:<br>1) How to define the score of a path?<br>2) How to calculate the total score of all possible paths? 3) When we calculate the total score, do we have to list all the possible paths? (The answer for this question is NO. )</p>
+<p>Now, the questions are:<br>1) How to define the score of a path?<br>2) How to calculate the total score of all possible paths?<br>3) When we calculate the total score, do we have to list all the possible paths? (The answer to this question is NO. )</p>
 <p>In the following sections, we will see how to solve these questions.</p>
 <h3 id="Next"><a href="#Next" class="headerlink" title="Next"></a>Next</h3><h4 id="2-4-Real-path-score"><a href="#2-4-Real-path-score" class="headerlink" title="2.4 Real path score"></a>2.4 Real path score</h4><p>How to calculate the score of the true labels of a sentence. </p>
 <h4 id="2-5-The-score-of-all-the-possible-paths"><a href="#2-5-The-score-of-all-the-possible-paths" class="headerlink" title="2.5 The score of all the possible paths"></a>2.5 The score of all the possible paths</h4><p>How to calculate the total score of all the possible paths of a sentence with a step-by-step toy example.</p>
@@ -151,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8i138yr0000hsp0a2xi1hun" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cj8w5e46o0000x8p01o6xi73k" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -269,22 +269,6 @@
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
