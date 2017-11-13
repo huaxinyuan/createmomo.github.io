@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="2.5 The total score of all the pathsIn the last section, we learned how to calculate the label path score of one path that is $e^{S_i}$. So far, we have one more problem which is needed to be solved,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-11-11T20:20:20.420Z">
+<meta property="og:updated_time" content="2017-11-13T17:58:57.612Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 5">
 <meta name="twitter:description" content="2.5 The total score of all the pathsIn the last section, we learned how to calculate the label path score of one path that is $e^{S_i}$. So far, we have one more problem which is needed to be solved,">
@@ -225,7 +225,7 @@ x_{02}+x_{11}+t_{21}&x_{02}+x_{12}+t_{22}
 <script type="math/tex; mode=display">
 previous=[\log (e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}), \log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})]</script><p>Actually, the second iteration has been finished. In case, some people would like to know how to calculate the total score of all the possible paths ($label_1$ &rightarrow; $label_1$, $label_1$ &rightarrow; $label_2$, $label_2$ &rightarrow; $label_1$, $label_2$ &rightarrow; $label_2$) from $w_0$ to $w_1$, you can do the calculation as follows.</p>
 <p>We use the elements in the new <em>previous</em>:</p>
-<p>$TotalScore(w_0 &rightarrow; w_1)$<br>$=\log (e^{\log(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})}+<br>e^{\log(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})}<br>)$<br>$=\log(e^{x_{01}+x_{11}+t_{11}}+e^{x_{02}+x_{11}+t_{21}}+e^{x_{01}+x_{12}+t_{12}}+e^{x_{02}+x_{12}+t_{22}})$</p>
+<p>$TotalScore(w_0 &rightarrow; w_1)$<br>$=\log (e^{previous[0]} + e^{previous[1]})$<br>$=\log (e^{\log(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})}+<br>e^{\log(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})}<br>)$<br>$=\log(e^{x_{01}+x_{11}+t_{11}}+e^{x_{02}+x_{11}+t_{21}}+e^{x_{01}+x_{12}+t_{12}}+e^{x_{02}+x_{12}+t_{22}})$</p>
 <p>Do you find something? Yes, this is exactly our goal, $\log(e^{S_1} + e^{S_2} + … + e^{S_N})$.</p>
 <p>In the equation, we can see:</p>
 <ul>
@@ -306,13 +306,12 @@ e^{\log (e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}) + x_{22} + t_{12}}
 \log(
 e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{21} + t_{21}}
 +
-e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}})</script><p>$<br>]<br>$<br>$=[\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}) + e^{x_{22} + t_{12}}<br>),$<br>$\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})]$</p>
+e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}})</script><p>$<br>]<br>$<br>$=[\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>),$<br>$\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})]$</p>
 <p>As described in the last iteration, we use the elements in the new <em>previous</em> to calculate the total score:</p>
-<p>$TotalScore(w_0 &rightarrow; w_1 &rightarrow; w_2)$</p>
-<p>$=\log (e^{\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>)}$<br>$+e^{\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})}<br>)$</p>
+<p>$TotalScore(w_0 &rightarrow; w_1 &rightarrow; w_2)$<br>$=\log (e^{previous[0]} + e^{previous[1]})$<br>$=\log (e^{\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>)}$<br>$+e^{\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})}<br>)$</p>
 <p>$=\log (e^{x_{01}+x_{11}+t_{11}+x_{21}+t_{11}}+e^{x_{02}+x_{11}+t_{21}+x_{21}+t_{11}}$<br>$+e^{x_{01}+x_{11}+t_{11}+x_{22}+t_{12}}+e^{x_{02}+x_{11}+t_{21}+x_{22}+t_{12}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{21}+t_{21}}+e^{x_{02}+x_{12}+t_{22}+x_{21}+t_{21}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{22}+t_{22}}+e^{x_{02}+x_{12}+t_{22}+x_{22}+t_{22}})$</p>
 <p><strong>Congratulations!</strong></p>
-<p>We achieve the goal, $\log(e^{S_1} + e^{S_2} + … + e^{S_N})$. There are three words in our toy sentence and two labels in our label set. Therefore, there should be totally 8 possible label paths. </p>
+<p>We achieve the goal, $\log(e^{S_1} + e^{S_2} + … + e^{S_N})$. There are three words in our toy sentence and two labels in our label set. Therefore, there should be totally 8 possible label paths.</p>
 <hr>
 <p>Before you enjoy a cup of coffee or a sweet cake to have a rest, please allow me to say something. Although you find the process quite complicated, the implementation of this algorithm would be much much easier. One of the advantages of computer is to do repetitive work.</p>
 <p>Now you can implement the CRF loss function by yourself and start to train your own model.</p>
@@ -326,7 +325,7 @@ e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}}
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cj9vs0d730001ukp0ftgit1sj" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cj9yhxr9i0003c4p0egfghvsd" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/#disqus_thread" class="article-comment-link">Comments</a>
       
