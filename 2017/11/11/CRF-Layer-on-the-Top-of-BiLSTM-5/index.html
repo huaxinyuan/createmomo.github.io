@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="2.5 The total score of all the pathsIn the last section, we learned how to calculate the label path score of one path that is $e^{S_i}$. So far, we have one more problem which is needed to be solved,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-11-13T17:58:57.612Z">
+<meta property="og:updated_time" content="2017-11-14T07:52:13.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 5">
 <meta name="twitter:description" content="2.5 The total score of all the pathsIn the last section, we learned how to calculate the label path score of one path that is $e^{S_i}$. So far, we have one more problem which is needed to be solved,">
@@ -301,15 +301,15 @@ scores =
 \log( 
 e^{\log (e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}) + x_{21} + t_{11}}
 +
-e^{\log (e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}) + x_{22} + t_{12}}
+e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{21} + t_{21}}
 ),</script><script type="math/tex; mode=display">
 \log(
-e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{21} + t_{21}}
+e^{\log (e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}}) + x_{22} + t_{12}}
 +
-e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}})</script><p>$<br>]<br>$<br>$=[\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>),$<br>$\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})]$</p>
+e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}})</script><p>$<br>]<br>$<br>$=[\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>),$<br>$\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})]$</p>
 <p>As described in the last iteration, we use the elements in the new <em>previous</em> to calculate the total score:</p>
-<p>$TotalScore(w_0 &rightarrow; w_1 &rightarrow; w_2)$<br>$=\log (e^{previous[0]} + e^{previous[1]})$<br>$=\log (e^{\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>)}$<br>$+e^{\log(<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})}<br>)$</p>
-<p>$=\log (e^{x_{01}+x_{11}+t_{11}+x_{21}+t_{11}}+e^{x_{02}+x_{11}+t_{21}+x_{21}+t_{11}}$<br>$+e^{x_{01}+x_{11}+t_{11}+x_{22}+t_{12}}+e^{x_{02}+x_{11}+t_{21}+x_{22}+t_{12}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{21}+t_{21}}+e^{x_{02}+x_{12}+t_{22}+x_{21}+t_{21}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{22}+t_{22}}+e^{x_{02}+x_{12}+t_{22}+x_{22}+t_{22}})$</p>
+<p>$TotalScore(w_0 &rightarrow; w_1 &rightarrow; w_2)$<br>$=\log (e^{previous[0]} + e^{previous[1]})$<br>$=\log (e^{\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{21} + t_{11}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{21} + t_{21}}<br>)}$<br>$+e^{\log(<br>(e^{x_{01}+x_{11}+t_{11}} + e^{x_{02}+x_{11}+t_{21}})e^{x_{22} + t_{12}}<br>+<br>(e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}})e^{x_{22} + t_{22}})}<br>)$</p>
+<p>$=\log (e^{x_{01}+x_{11}+t_{11}+x_{21}+t_{11}}+e^{x_{02}+x_{11}+t_{21}+x_{21}+t_{11}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{21}+t_{21}}+e^{x_{02}+x_{12}+t_{22}+x_{21}+t_{21}}$<br>$+e^{x_{01}+x_{11}+t_{11}+x_{22}+t_{12}}+e^{x_{02}+x_{11}+t_{21}+x_{22}+t_{12}}$<br>$+e^{x_{01}+x_{12}+t_{12}+x_{22}+t_{22}}+e^{x_{02}+x_{12}+t_{22}+x_{22}+t_{22}})$</p>
 <p><strong>Congratulations!</strong></p>
 <p>We achieve the goal, $\log(e^{S_1} + e^{S_2} + … + e^{S_N})$. There are three words in our toy sentence and two labels in our label set. Therefore, there should be totally 8 possible label paths.</p>
 <hr>
@@ -325,7 +325,7 @@ e^{\log (e^{x_{01}+x_{12}+t_{12}} + e^{x_{02}+x_{12}+t_{22}}) + x_{22} + t_{22}}
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cj9yhxr9i0003c4p0egfghvsd" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cj9zbmayf0002ekp01hzqhyka" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/#disqus_thread" class="article-comment-link">Comments</a>
       
