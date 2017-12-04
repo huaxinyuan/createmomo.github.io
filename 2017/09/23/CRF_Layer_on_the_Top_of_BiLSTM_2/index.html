@@ -13,7 +13,7 @@
 <meta property="og:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/CRF-LAYER-2.jpg">
-<meta property="og:updated_time" content="2017-10-07T23:26:19.421Z">
+<meta property="og:updated_time" content="2017-12-04T08:51:21.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 2">
 <meta name="twitter:description" content="ReviewIn the previous section, we know that the CRF layer can learn some constraints from the training dataset to ensure the final predicted entity label sequences are valid. The constrains could be:">
@@ -130,8 +130,8 @@
 </div>
 <p>We use $ x_{iy_j} $ to represent the emission score. $ i $ is the index of word and $ y_j $ is the index of label. For instance, according the figure 2.1, $ x_{i=1,y_j=2} = x_{w_1,B-Organization} = 0.1$ which means the score of $ w_1 $ as B-Organization is 0.1.</p>
 <h3 id="2-2-Transition-score"><a href="#2-2-Transition-score" class="headerlink" title="2.2 Transition score"></a>2.2 Transition score</h3><p>We use $ t_{y_iy_j} $ to represent a transition score. For example, $ t_{B-Person, I-Person} = 0.9$ means the score of label transition $ B-Person \rightarrow I-Person$ is 0.9. Therefore, we have a transition score matrix which stores all the scores between all the labels.</p>
-<p>In order to make the transition score matrix more robust, we will add two more labels, START and END. START means the start of a sentence, NOT the first word. END means the end of sentence. If you still feel confused, after reading the following table, you will understant them.</p>
-<p>Here is an example of the transition matrix score.</p>
+<p>In order to make the transition score matrix more robust, we will add two more labels, START and END. START means the start of a sentence, NOT the first word. END means the end of sentence.</p>
+<p>Here is an example of the transition matrix score including the extra added START and END labels.</p>
 <div class="table-container">
 <table>
 <thead>
@@ -240,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cjan4b4360004ksp07zelnfba" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cjaryivlc0004f8p07oz0ssgy" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/#disqus_thread" class="article-comment-link">Comments</a>
       
