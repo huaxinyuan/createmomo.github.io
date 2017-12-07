@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="3.4 DemoIn this section, we will make two fake sentences which only have 2 words and 1 word respectively. Moreover, we will also randomly generate their true answers. Finally, we will show how to trai">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-12-07T22:23:52.564Z">
+<meta property="og:updated_time" content="2017-12-07T22:34:44.833Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 8">
 <meta name="twitter:description" content="3.4 DemoIn this section, we will make two fake sentences which only have 2 words and 1 word respectively. Moreover, we will also randomly generate their true answers. Finally, we will show how to trai">
@@ -82,8 +82,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="3-4-Demo"><a href="#3-4-Demo" class="headerlink" title="3.4 Demo"></a>3.4 Demo</h4><p>In this section, we will make two fake sentences which only have 2 words and 1 word respectively. Moreover, we will also randomly generate their true answers. Finally, we will show how to train the CRF Layer by using Chainer v2.0. All the codes including the CRF layer are avaialbe from <a href="https://github.com/createmomo/CRF-Layer-on-the-Top-of-BiLSTM" target="_blank" rel="external">GitHub</a>.</p>
-<p>Firstly, we import our own CRF Layer implmentation, ‘MyCRFLayer’.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> chainer</div><div class="line"></div><div class="line"><span class="keyword">import</span> MyCRFLayer</div></pre></td></tr></table></figure></p>
+        <h4 id="3-4-Demo"><a href="#3-4-Demo" class="headerlink" title="3.4 Demo"></a>3.4 Demo</h4><p>In this section, we will make two fake sentences which only have 2 words and 1 word respectively. Moreover, we will also randomly generate their true answers. Finally, we will show how to train the CRF Layer by using Chainer v2.0. All the codes including the CRF layer are avaialbe from <a href="https://github.com/createmomo/CRF-Layer-on-the-Top-of-BiLSTM" target="_blank" rel="external">GitHub</a>.<br><a id="more"></a><br>Firstly, we import our own CRF Layer implmentation, ‘MyCRFLayer’.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> chainer</div><div class="line"></div><div class="line"><span class="keyword">import</span> MyCRFLayer</div></pre></td></tr></table></figure></p>
 <p>We say that in our dataset we only have 2 labels (e.g. B-Person, O)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">n_label = <span class="number">2</span></div></pre></td></tr></table></figure></p>
 <p>The following code block is generating 2 sentences, xs = [x1, x2]. Sentence x1 has two words and x2 has only one word.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">a = np.random.uniform(<span class="number">-1</span>, <span class="number">1</span>, n_label).astype(<span class="string">'f'</span>)</div><div class="line">b = np.random.uniform(<span class="number">-1</span>, <span class="number">1</span>, n_label).astype(<span class="string">'f'</span>)</div><div class="line"></div><div class="line">x1 = np.stack([b, a])</div><div class="line">x2 = np.stack([a])</div><div class="line"></div><div class="line">xs = [x1, x2]</div></pre></td></tr></table></figure></p>
 <p>It should be noticed that, the elements of x1 and x2 are not the word embeddings instead of the emission scores from the BiLSTM layer which is not implemented here. </p>
@@ -150,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/" data-id="cjax1ytyg0006rop0kmqbvt6c" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/" data-id="cjax29fg00004vop01u46lx3t" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -285,6 +284,22 @@
 
 <script src="/js/script.js"></script>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
