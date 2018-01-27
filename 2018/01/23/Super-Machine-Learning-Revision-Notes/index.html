@@ -5,17 +5,22 @@
   
   <title>Super Machine Learning Revision Notes | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[Last Updated: 23/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+  <meta name="description" content="[Last Updated: 27/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Super Machine Learning Revision Notes">
 <meta property="og:url" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/index.html">
 <meta property="og:site_name" content="CreateMoMo">
-<meta property="og:description" content="[Last Updated: 23/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:description" content="[Last Updated: 27/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-01-23T01:17:25.131Z">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
+<meta property="og:updated_time" content="2018-01-27T18:08:28.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
-<meta name="twitter:description" content="[Last Updated: 23/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:description" content="[Last Updated: 27/01/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -82,23 +87,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Last-Updated-23-01-2018"><a href="#Last-Updated-23-01-2018" class="headerlink" title="[Last Updated: 23/01/2018]"></a>[Last Updated: 23/01/2018]</h3><p>This article aims to summarise:</p>
+        <h3 id="Last-Updated-27-01-2018"><a href="#Last-Updated-27-01-2018" class="headerlink" title="[Last Updated: 27/01/2018]"></a>[Last Updated: 27/01/2018]</h3><p>This article aims to summarise:</p>
 <ul>
 <li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
 <li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
 <li><strong>practical tips</strong> learned from my own practice and some online courses such as <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.</li>
 </ul>
 <p><strong>If you a student</strong> who is studing machine learning, hope this article could help you to shorten your revision time and bring you useful inspiration. <strong>If you are not a student</strong>, hope this article would be helpful when you cannot recall some models or algorithms.</p>
-<p>Moreover, you can also treat it as a <strong>“Quick Check Guide”</strong>. Please be free to use Ctrl+F to search any key words interested you. </p>
-<p><strong><strong>Any comments and suggestions are most welcome!</strong></strong></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a><a name="models"></a>Models</h3><ul>
-<li><a name="logistic-regression"></a>Logistic Regression</li>
+<p>Moreover, you can also treat it as a <strong>“Quick Check Guide”</strong>. Please be free to use Ctrl+F to search any key words interested you.</p>
+<p><strong><strong>Any comments and suggestions are most welcome!</strong></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h2><ul>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent">Gradient Descent</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#computation_graph">Computation Graph</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#backpropagation">Backpropagation</a></li>
 </ul>
-
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#models">Models</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a><a name="gradient_descent"></a>Gradient Descent</h3><h4 id="Computation-Graph"><a href="#Computation-Graph" class="headerlink" title="- Computation Graph"></a><a name="computation_graph"></a>- Computation Graph</h4><p>The computation graph example was learned from the first course of <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.<br>Let’s say we have 3 learnable parameters, $a$, $b$ and $c$. The cost function is $J=3(a+bc)$. Next, we need to compute the parameters’ gradient: $\frac{dJ}{da}$, $\frac{dJ}{db}$ and $\frac{dJ}{dc}$. We also define: $u=bc$, $v=a+u$ and $J=3v$. The computation could be converted into the computation graph below:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png" alt="forward computation"></p>
+<h4 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="- Backpropagation"></a><a name="backpropagation"></a>- Backpropagation</h4><p>Based on the graph above, it is clear that the gradient of parameters are: $\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}$, $\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}$, $\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}$.<br>Computing the gradients of each node is easy as shown below. (Tips: In fact, if you are implementing your own algorithm, the gradients could be computed during the forward process to save computation resources and training time. Therefore, when you do backpropagation, there is no need to compute the gradients of each node again.)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png" alt="gradient of each node"><br>Now we can compute the gradient of each parameters by simply combine the node gradients:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png" alt="backpropagation"><br>$\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}=3\times1=3$<br>$\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}=3\times1\times2=6$<br>$\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}=3\times1\times3=9$</p>
+<h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a><a name="models"></a>Models</h3><h4 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="- Logistic Regression"></a><a name="logistic-regression"></a>- Logistic Regression</h4><p>Given the feature vector of an instance $x$, the output of logistic regression model is $p(y=1|x)$. Therefore, the probability $p(y=0|x)=1-p(y=1|x)$. In a logistic regression, the learnable parameters are $W$ and $b$.</p>
+<script type="math/tex; mode=display">
+p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value of $W^Tx+b$ and y-axis is $p(y=1|x)$. (The piciture is download from <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank" rel="external">wikipedia</a>)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png" alt="logistic curve"><br><strong>Loss function</strong> for one training instance $(x^i,y^i)$:</p>
+<script type="math/tex; mode=display">
+L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$\hat{y}^i$ is the prediction and $y^i$ is true answer.<br><strong>Cost Function</strong> for the whole train dataset:</p>
+<script type="math/tex; mode=display">J(W,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^i,y^i)</script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjcqybaio00090op00pkx81lz" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjcxo7jxk000ao4p0mqy9kiq3" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -109,7 +131,7 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/01/23/Table-of-Contents/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/27/Table-of-Contents/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
@@ -164,7 +186,7 @@
       <ul>
         
           <li>
-            <a href="/2018/01/23/Table-of-Contents/">Table of Contents</a>
+            <a href="/2018/01/27/Table-of-Contents/">Table of Contents</a>
           </li>
         
           <li>
