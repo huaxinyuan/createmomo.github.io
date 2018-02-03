@@ -17,7 +17,8 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
-<meta property="og:updated_time" content="2018-02-02T22:02:48.946Z">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions.png">
+<meta property="og:updated_time" content="2018-02-03T00:37:49.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -105,8 +106,18 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#backpropagation">Backpropagation</a></li>
 </ul>
 </li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#learnable_and_hyper_parameters">Learnable and Hyper Parameters</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Intialization</a></li>
+</ul>
+</li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#models">Models</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
+</ul>
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#train_dev_test">Train/Dev/Test Dataset</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -132,8 +143,8 @@
 <td>$1-(tanh(z))^2$</td>
 </tr>
 <tr>
-<td>-</td>
-<td>-</td>
+<td></td>
+<td></td>
 <td>0, if $z&lt;0$</td>
 </tr>
 <tr>
@@ -142,13 +153,13 @@
 <td>1, if $z&gt;0$</td>
 </tr>
 <tr>
-<td>-</td>
-<td>-</td>
+<td></td>
+<td></td>
 <td>undefined, if $z=0$</td>
 </tr>
 <tr>
-<td>-</td>
-<td>-</td>
+<td></td>
+<td></td>
 <td>0.01, if $z&lt;0$</td>
 </tr>
 <tr>
@@ -157,8 +168,8 @@
 <td>1, if $z&gt;0$</td>
 </tr>
 <tr>
-<td>-</td>
-<td>-</td>
+<td></td>
+<td></td>
 <td>undefined, if $z=0$</td>
 </tr>
 </tbody>
@@ -175,6 +186,60 @@
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h4 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="- Backpropagation"></a><a name="backpropagation"></a>- Backpropagation</h4><p>Based on the graph above, it is clear that the gradient of parameters are: $\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}$, $\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}$, $\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}$.<br>Computing the gradients of each node is easy as shown below. (Tips: In fact, if you are implementing your own algorithm, the gradients could be computed during the forward process to save computation resources and training time. Therefore, when you do backpropagation, there is no need to compute the gradients of each node again.)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png" alt="gradient of each node"><br>Now we can compute the gradient of each parameters by simply combine the node gradients:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png" alt="backpropagation"><br>$\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}=3\times1=3$<br>$\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}=3\times1\times2=6$<br>$\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}=3\times1\times3=9$</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Learnable Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$W, b$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Hyper Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>learning rate $\alpha$</td>
+</tr>
+<tr>
+<td>the number of iterations</td>
+</tr>
+<tr>
+<td>the number of hidden layers $L$</td>
+</tr>
+<tr>
+<td>the number of hidden units of each layer</td>
+</tr>
+<tr>
+<td>choice of activation function</td>
+</tr>
+<tr>
+<td>parameters of Momentum</td>
+</tr>
+<tr>
+<td>mini batch size</td>
+</tr>
+<tr>
+<td>parameters of regularization</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Parameters-Intialization"><a href="#Parameters-Intialization" class="headerlink" title="- Parameters Intialization"></a><a name="parameters_initialization"></a>- Parameters Intialization</h4><p>(<strong>Note:</strong> Actually, the machine learning frameworks (e.g. tensorflow, chainer etc.) have already provided robust parameter initialization functions.)</p>
+<h5 id="Small-Initial-Values"><a href="#Small-Initial-Values" class="headerlink" title="Small Initial Values"></a><em>Small Initial Values</em></h5><p>For example, when we initialize the parameter $W$, we time a small value (i.e. 0.01) to ensure the initial parameters are small:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">W = numpy.random.randn(shape) * 0.01</div></pre></td></tr></table></figure></p>
+<p>The reason for doing this is, if you are using sigmoid function and your initial parameters are large, the gradients would be very small.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a><a name="models"></a>Models</h3><h4 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="- Logistic Regression"></a><a name="logistic-regression"></a>- Logistic Regression</h4><p>Given the feature vector of an instance $x$, the output of logistic regression model is $p(y=1|x)$. Therefore, the probability $p(y=0|x)=1-p(y=1|x)$. In a logistic regression, the learnable parameters are $W$ and $b$.</p>
 <script type="math/tex; mode=display">
 p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value of $W^Tx+b$ and y-axis is $p(y=1|x)$. (The picture is download from <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank" rel="external">wikipedia</a>)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png" alt="logistic curve"><br><strong>Loss function</strong> for one training instance $(x^i,y^i)$:</p>
@@ -182,11 +247,61 @@ p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value 
 L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$\hat{y}^i$ is the prediction and $y^i$ is true answer.<br><strong>Cost Function</strong> for the whole train dataset ($m$ is the number of examples in the training dataset):</p>
 <script type="math/tex; mode=display">J(W,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^i,y^i)</script><p><strong>Minimizing the cost function is actually maximizing the likelihood of data.</strong><br>$LogLikelihood=\sum_{i=1}^{m}logP(y^i|x^i)=\sum_{i=1}^{m}log(\hat{y}^y(1-\hat{y})^{1-y})=-\sum_{i=1}^{m}L(\hat{y}^i,y^i)$</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="practical_tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
+<li>Usually, we use 70% of a dataset as training data and 30% as test set; or 60%(train)/20%(dev)/20%(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000) and make the sizes of dev and test set equally (e.g. 10,000 for dev and 10,000 for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
+<li>Make sure the dev and test set come from the same distribution</li>
+</ul>
+<h4 id="Over-UnderFitting-Bias-Variance-Solutions"><a href="#Over-UnderFitting-Bias-Variance-Solutions" class="headerlink" title="- Over/UnderFitting, Bias/Variance, Solutions"></a><a name="over_and_under_fitting"></a>- Over/UnderFitting, Bias/Variance, Solutions</h4><p>For a classification task, the human classification error is supposed to be around 0%. The analysis of various possible performances of the supervised model on the both training and dev set is as shown below.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training Set Error</td>
+<td>1%</td>
+<td>15%</td>
+<td>15%</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>Test Set Error</td>
+<td>11%</td>
+<td>16%</td>
+<td>30%</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>overfitting</td>
+<td>underfitting</td>
+<td>underfitting</td>
+<td>good</td>
+</tr>
+<tr>
+<td></td>
+<td>high variance</td>
+<td>high bias</td>
+<td>high bias and variance</td>
+<td>low bias and variance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Solutions</strong>:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions.png" alt="solutions for high bias and variance"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd6h975t000cu4p0uhp9h03r" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd6mrhdl000bcsp084mag6xo" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
