@@ -16,11 +16,13 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
-<meta property="og:updated_time" content="2018-02-03T17:43:19.182Z">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
+<meta property="og:updated_time" content="2018-02-03T19:58:36.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -97,7 +99,7 @@
 <li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
 <li><strong>practical tips</strong> learned from my own practice and some online courses such as <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.</li>
 </ul>
-<p><strong>If you a student</strong> who is studing machine learning, hope this article could help you to shorten your revision time and bring you useful inspiration. <strong>If you are not a student</strong>, hope this article would be helpful when you cannot recall some models or algorithms.</p>
+<p><strong>If you a student</strong> who is studying machine learning, hope this article could help you to shorten your revision time and bring you useful inspiration. <strong>If you are not a student</strong>, hope this article would be helpful when you cannot recall some models or algorithms.</p>
 <p>Moreover, you can also treat it as a <strong>“Quick Check Guide”</strong>. Please be free to use Ctrl+F to search any key words interested you.</p>
 <p><strong><strong>Any comments and suggestions are most welcome!</strong></strong><br><a id="more"></a></p>
 <hr>
@@ -107,16 +109,17 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#computation_graph">Computation Graph</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#backpropagation">Backpropagation</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradients_for_l2_regularization">Gradients for L2 Regularization (weight decay)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vanishing_exploding_gradients">Vanishing/Exploding Gradients</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#learnable_and_hyper_parameters">Learnable and Hyper Parameters</a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Intialization</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Initialization</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#regularization">Regularization</a></strong><ul>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#l1_regularization">L1 Regularization</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#l2_regularization">L2 Regularization (weight decay)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#l1_regularization">L1 Regularization</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#dropout">Dropout (inverted dropout)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#early_stopping">Early Stopping</a></li>
 </ul>
@@ -128,6 +131,7 @@
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#train_dev_test">Train/Dev/Test Dataset</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#input_normalization">Input Normalization</a></li>
 </ul>
 </li>
 </ul>
@@ -197,6 +201,17 @@
 <h4 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="- Backpropagation"></a><a name="backpropagation"></a>- Backpropagation</h4><p>Based on the graph above, it is clear that the gradient of parameters are: $\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}$, $\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}$, $\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}$.<br>Computing the gradients of each node is easy as shown below. (Tips: In fact, if you are implementing your own algorithm, the gradients could be computed during the forward process to save computation resources and training time. Therefore, when you do backpropagation, there is no need to compute the gradients of each node again.)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png" alt="gradient of each node"><br>Now we can compute the gradient of each parameters by simply combine the node gradients:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png" alt="backpropagation"><br>$\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}=3\times1=3$<br>$\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}=3\times1\times2=6$<br>$\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}=3\times1\times3=9$</p>
 <h4 id="Gradients-for-L2-Regularization-weight-decay"><a href="#Gradients-for-L2-Regularization-weight-decay" class="headerlink" title="- Gradients for L2 Regularization (weight decay)"></a><a name="gradients_for_l2_regularization"></a>- Gradients for L2 Regularization (weight decay)</h4><p>The gradients is changed a bit by adding $\frac{\lambda}{m}W$.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Repeat&#123;</div><div class="line">    W := W - (lambda/m) * W - learning_rate * dJ(W)/dW</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Vanishing-Exploding-Gradients"><a href="#Vanishing-Exploding-Gradients" class="headerlink" title="- Vanishing/Exploding Gradients"></a><a name="vanishing_exploding_gradients"></a>- Vanishing/Exploding Gradients</h4><p>If we have a very deep neural network and we did not initialize weight properly, we may suffer gradients vanishing or exploding problems. (More details about parameter initialization: <a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Initialization</a>)</p>
+<p>In order to explain what is the vanishing or exploding gradients problems, a simple but deep neural network architecture will be taken as an example. (Again, the great example is from the online course <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>)</p>
+<p>The neural network has $L$ layers. For simplicity, the parameter $b^{[l]}$ for each layer is 0 and all the activation functions are $g(z)=z$. In addition, every parameter $W^{[l]}$ has the same values.</p>
+<script type="math/tex; mode=display">
+W^{[l]}=\left(\begin{array}{cc}
+1.5 & 0\\
+0 & 1.5
+\end{array}\right)</script><p>Based on the simple model above, the final output would be:<br>$y=W^{[l]}W^{[l-1]}W^{[l-2]}…W^{[3]}W^{[2]}W^{[1]}X$</p>
+<p>Because the weight value $1.5&gt;1$, we will get $1.5^L$ in some elements which is explosive. Similarly, if the weight value less than 1.0 (e.g. 0.5), there are some vanishing gradients (e.g. $0.5^L$) somewhere.</p>
+<p><strong>These vanishing/exploding gradients will make training very hard. So carefully initializing weights for deep neural networks is important.</strong></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
 <table>
 <thead>
@@ -247,9 +262,16 @@
 </table>
 </div>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="Parameters-Intialization"><a href="#Parameters-Intialization" class="headerlink" title="- Parameters Intialization"></a><a name="parameters_initialization"></a>- Parameters Intialization</h4><p>(<strong>Note:</strong> Actually, the machine learning frameworks (e.g. tensorflow, chainer etc.) have already provided robust parameter initialization functions.)</p>
+<h4 id="Parameters-Initialization"><a href="#Parameters-Initialization" class="headerlink" title="- Parameters Initialization"></a><a name="parameters_initialization"></a>- Parameters Initialization</h4><p>(<strong>Note:</strong> Actually, the machine learning frameworks (e.g. tensorflow, chainer etc.) have already provided robust parameter initialization functions.)</p>
 <h5 id="Small-Initial-Values"><a href="#Small-Initial-Values" class="headerlink" title="Small Initial Values"></a><em>Small Initial Values</em></h5><p>For example, when we initialize the parameter $W$, we time a small value (i.e. 0.01) to ensure the initial parameters are small:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">W = numpy.random.randn(shape) * 0.01</div></pre></td></tr></table></figure></p>
 <p>The reason for doing this is, if you are using sigmoid function and your initial parameters are large, the gradients would be very small.</p>
+<h5 id="More-Hidden-Units-Smaller-Weights"><a href="#More-Hidden-Units-Smaller-Weights" class="headerlink" title="More Hidden Units, Smaller Weights"></a><em>More Hidden Units, Smaller Weights</em></h5><p>Similarly, we will use pseudo-code to show how various initialization methods work. The idea is we prefer to assign smaller values to parameters to prevent the training phrase from vanishing or exploding gradients, if the number of hidden units is larger. The figure below may provide you some insights to understand the idea.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png" alt="z"></p>
+<p>Based on the abovementioned idea, we could time the weights with a term related to the number of hidden units.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">W = numpy.random.randn(shape) * numpy.sqrt(1/n[l-1])</div></pre></td></tr></table></figure>
+<p>The equation of the multiplied term is $\sqrt{\frac{1}{n^{[l-1]}}}$. $n^{[l-1]}$ is the number of hidden units in the previous layer.</p>
+<p>If you are using Relu activation function, using the term $\sqrt{\frac{2}{n^{[l-1]}}}$ could work better.</p>
+<h5 id="Xavier-Initialization"><a href="#Xavier-Initialization" class="headerlink" title="Xavier Initialization"></a><em>Xavier Initialization</em></h5><p>If your activation function is $\tanh$, Xavier initialization ( $\sqrt{\frac{1}{n^{[l-1]}}}$ or $\sqrt{\frac{2}{n^{[l-1]} + n^{[l]}}}$) would be a good choice.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a><a name="regularization"></a>Regularization</h3><p>Regularization is a way to prevent overfitting problem in machine learning. An additional regularization term would be added to the loss function.</p>
 <h4 id="L2-Regularization-weight-decay"><a href="#L2-Regularization-weight-decay" class="headerlink" title="- L2 Regularization (weight decay)"></a><a name="l2_regularization"></a>- L2 Regularization (weight decay)</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W||_2^2$</p>
@@ -328,11 +350,17 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 </div>
 <p><strong>Solutions</strong>:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png" alt="solutions for high bias and variance"></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Input-Normalization"><a href="#Input-Normalization" class="headerlink" title="- Input Normalization"></a><a name="input_normalization"></a>- Input Normalization</h4><p>We have a train set including $m$ examples. $X^{(i)}$ represents the $i^{th}$ exmaple. The inputs normalization is as follows.</p>
+<p>$X:=\frac{X-\mu}{\sigma^2}$,<br>$\mu=\frac{1}{m}\sum_{i=1}^mX^{(i)}$,<br>$\sigma^2=\frac{1}{m}\sum_{i=1}^m(X^{(i)})^2$</p>
+<p><strong>!Note:</strong> MUST use the same $\mu$ and $\sigma^2$ of training data to normalize the test dataset.</p>
+<p>Using input normalization could make training faster.</p>
+<p>Suppose the inputs are two dimensional, $X = [X_1, X_2]$. The ranges are [1-1000] and [1-10] of $X_1$ and $X_2$ respectively. The loss function may look like this (left):<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png" alt="left:non-normalized right: normalized"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd7b0ytt000ctkp0ddl1i0ut" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd7nivif000c5wp03nt7scfn" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
