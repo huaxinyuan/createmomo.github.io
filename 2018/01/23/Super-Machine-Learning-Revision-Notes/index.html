@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions.png">
-<meta property="og:updated_time" content="2018-02-03T00:37:49.787Z">
+<meta property="og:updated_time" content="2018-02-03T00:56:29.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -247,7 +247,7 @@ p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value 
 L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$\hat{y}^i$ is the prediction and $y^i$ is true answer.<br><strong>Cost Function</strong> for the whole train dataset ($m$ is the number of examples in the training dataset):</p>
 <script type="math/tex; mode=display">J(W,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^i,y^i)</script><p><strong>Minimizing the cost function is actually maximizing the likelihood of data.</strong><br>$LogLikelihood=\sum_{i=1}^{m}logP(y^i|x^i)=\sum_{i=1}^{m}log(\hat{y}^y(1-\hat{y})^{1-y})=-\sum_{i=1}^{m}L(\hat{y}^i,y^i)$</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="practical_tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
+<h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
 <li>Usually, we use 70% of a dataset as training data and 30% as test set; or 60%(train)/20%(dev)/20%(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000) and make the sizes of dev and test set equally (e.g. 10,000 for dev and 10,000 for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
 </ul>
@@ -301,7 +301,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd6mrhdl000bcsp084mag6xo" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd6nfqxy000b4cp0nn6kk0ie" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -436,22 +436,6 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
