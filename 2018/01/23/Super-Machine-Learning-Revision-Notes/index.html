@@ -16,9 +16,11 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
-<meta property="og:updated_time" content="2018-02-03T11:56:51.234Z">
+<meta property="og:updated_time" content="2018-02-03T17:43:19.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -250,18 +252,25 @@
 <p>The reason for doing this is, if you are using sigmoid function and your initial parameters are large, the gradients would be very small.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a><a name="regularization"></a>Regularization</h3><p>Regularization is a way to prevent overfitting problem in machine learning. An additional regularization term would be added to the loss function.</p>
-<h4 id="L2-Regularization"><a href="#L2-Regularization" class="headerlink" title="- L2 Regularization"></a><a name="l2_regularization"></a>- L2 Regularization</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W||_2^2$</p>
-<p>In the new loss function, $\frac{\lambda}{2m}||W||_2^2$ is the regularization term and $\lambda$ is the regularization parameter (a hyper parameter).</p>
+<h4 id="L2-Regularization-weight-decay"><a href="#L2-Regularization-weight-decay" class="headerlink" title="- L2 Regularization (weight decay)"></a><a name="l2_regularization"></a>- L2 Regularization (weight decay)</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W||_2^2$</p>
+<p>In the new loss function, $\frac{\lambda}{2m}||W||_2^2$ is the regularization term and $\lambda$ is the regularization parameter (a hyper parameter). L2 regularization is also called weight decay.</p>
 <p>For the logistic regression model, $W$ is a vector (i.e. the dimension of $W$ is the same as the feature vector), the regularization term would be:</p>
 <p>$||W||_{2}^2=\sum_{j=1}^{dimension}W_{j}^2$.</p>
-<p>If for a neural network model which has multiple layers (e.g. $L$ layers), there are multiple parameter matrixes between layers. The shape of each matrix $W$ is $(n^{[l]}, n^{[l-1]})$. In the equation, $l$ is the $l^{th}$ layer and $n^{[l]}$ is the number of hidden units in layer $l$. Therefore, the L2 regularization term would be:</p>
+<p>For a neural network model which has multiple layers (e.g. $L$ layers), there are multiple parameter matrixes between layers. The shape of each matrix $W$ is $(n^{[l]}, n^{[l-1]})$. In the equation, $l$ is the $l^{th}$ layer and $n^{[l]}$ is the number of hidden units in layer $l$. Therefore, the L2 regularization term would be:</p>
 <p>$\frac{\lambda}{2m}\sum_{l=1}^L||W^l||_2^2$</p>
 <p>$||W^l||_{2}^2=\sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}(W_{ij}^l)^2$ (also called Frobenius norm).</p>
 <h4 id="L1-Regularization"><a href="#L1-Regularization" class="headerlink" title="- L1 Regularization"></a><a name="l1_regularization"></a>- L1 Regularization</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W^l||$</p>
 <p>$||W^l||=\sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}W_{ij}^l$.</p>
 <p>If we use L1 regularization, the parameters $W$ would be sparse.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="Dropout-inverted-dropout"><a href="#Dropout-inverted-dropout" class="headerlink" title="- Dropout (inverted dropout)"></a><a name="dropout"></a>- Dropout (inverted dropout)</h4><h4 id="Early-Stopping"><a href="#Early-Stopping" class="headerlink" title="- Early Stopping"></a><a name="early_stopping"></a>- Early Stopping</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Dropout-inverted-dropout"><a href="#Dropout-inverted-dropout" class="headerlink" title="- Dropout (inverted dropout)"></a><a name="dropout"></a>- Dropout (inverted dropout)</h4><p>To understand dropout intuitively, dropout regularization aims to make the supervised model more robust. In the training phrase, some output values of activation functions will be ignored. Therefore, when making predictions, the model will not rely on any one feature.</p>
+<p>In dropout regularization, the hyper parameter “keep probability” describes the chance to active a hidden unit. Therefore, if a hidden layer has $n$ units and the probability is $p$, around $p \times n$ units will be activated and around $(1-p)\times n$ units will be shut off.</p>
+<p><strong>Example:</strong><br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png" alt="dropout example"></p>
+<p>As shown above, 2 units of 2nd layer are dropped. Therefore, the value of linear combination of 3rd layer (i.e. $z^{[3]=}W^{[3]}a^{[2]}+b^{[3]}$) will decrease. In order not to reduce the expect value of $z$, we should adjust the value of $a^{[2]}$ by dividing the keep probability. That is: $a^{[2]} := \frac{a^{[2]}}{p}$</p>
+<p><strong>!Note:</strong> When making predictions at test time, there is <strong>NO NEED</strong> to use dropout regularization.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Early-Stopping"><a href="#Early-Stopping" class="headerlink" title="- Early Stopping"></a><a name="early_stopping"></a>- Early Stopping</h4><p>Using early stopping to prevent the model from overfitting.<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png" alt="early stopping"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a><a name="models"></a>Models</h3><h4 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="- Logistic Regression"></a><a name="logistic-regression"></a>- Logistic Regression</h4><p>Given the feature vector of an instance $x$, the output of logistic regression model is $p(y=1|x)$. Therefore, the probability $p(y=0|x)=1-p(y=1|x)$. In a logistic regression, the learnable parameters are $W$ and $b$.</p>
 <script type="math/tex; mode=display">
 p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value of $W^Tx+b$ and y-axis is $p(y=1|x)$. (The picture is download from <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank" rel="external">wikipedia</a>)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png" alt="logistic curve"><br><strong>Loss function</strong> for one training instance $(x^i,y^i)$:</p>
@@ -323,7 +332,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd6njulh000cdgp0crhopswm" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd7b0ytt000ctkp0ddl1i0ut" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
