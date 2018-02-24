@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-02-24T00:39:51.491Z">
+<meta property="og:updated_time" content="2018-02-24T00:43:42.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -218,14 +218,14 @@ W^{[l]}=\left(\begin{array}{cc}
 <p>Because the weight value $1.5&gt;1$, we will get $1.5^L$ in some elements which is explosive. Similarly, if the weight value less than 1.0 (e.g. 0.5), there are some vanishing gradients (e.g. $0.5^L$) somewhere.</p>
 <p><strong>These vanishing/exploding gradients will make training very hard. So carefully initializing weights for deep neural networks is important.</strong></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="Mini-Batch-Gradient-Descent"><a href="#Mini-Batch-Gradient-Descent" class="headerlink" title="- Mini-Batch Gradient Descent"></a><a name="#mini_batch_gradient_descent"></a>- Mini-Batch Gradient Descent</h4><p>If we have a huge training dataset, it will take a long time that training a model on a single epoch. It would be hard for us to track the training process. In the mini-batch gradient descent, the cost and gradients are computed based on the training examples in current batch.</p>
+<h4 id="Mini-Batch-Gradient-Descent"><a href="#Mini-Batch-Gradient-Descent" class="headerlink" title="- Mini-Batch Gradient Descent"></a><a name="mini_batch_gradient_descent"></a>- Mini-Batch Gradient Descent</h4><p>If we have a huge training dataset, it will take a long time that training a model on a single epoch. It would be hard for us to track the training process. In the mini-batch gradient descent, the cost and gradients are computed based on the training examples in current batch.</p>
 <p>$X$ represents the whole train set and it is divided into several batches as shown below. $m$ is the number of training examples.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini-batch.png" alt="mini-batches of training data X"></p>
 <p>The procedure of mini-batches is as follows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For t= (1, ... , #Batches):</div><div class="line">  Do forward propagation on the t-th batch examples;</div><div class="line">  Compute the cost on the t-th batch examples;</div><div class="line">  Do backward propagation on the t-th batch examples to compute gradients and update parameters.</div></pre></td></tr></table></figure></p>
 <p>During the training process, the cost trend is smoother when we do not apply mini-batch gradient descent than that of using mini-batches to train our model.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_loss.png" alt="cost trend of batch and mini-batch gradient Descent"></p>
-<h4 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="- Stochastic Gradient Descent"></a><a name="#stochastic_gradient_descent"></a>- Stochastic Gradient Descent</h4><p>When the batch size is 1, it is called Stochastic gradient descent.</p>
-<h4 id="Choosing-Mini-Batch-Size"><a href="#Choosing-Mini-Batch-Size" class="headerlink" title="- Choosing Mini-Batch Size"></a><a name="#choosing_mini_batch_size"></a>- Choosing Mini-Batch Size</h4><p>Mini-Batch Size:<br>1) if the size is $M$, the number of examples in the whole train set, the gradient descent is exactly Batch Gradient Descent.<br>2) if the size is 1, it is called Stochastic Gradient Descent.</p>
+<h4 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="- Stochastic Gradient Descent"></a><a name="stochastic_gradient_descent"></a>- Stochastic Gradient Descent</h4><p>When the batch size is 1, it is called Stochastic gradient descent.</p>
+<h4 id="Choosing-Mini-Batch-Size"><a href="#Choosing-Mini-Batch-Size" class="headerlink" title="- Choosing Mini-Batch Size"></a><a name="choosing_mini_batch_size"></a>- Choosing Mini-Batch Size</h4><p>Mini-Batch Size:<br>1) if the size is $M$, the number of examples in the whole train set, the gradient descent is exactly Batch Gradient Descent.<br>2) if the size is 1, it is called Stochastic Gradient Descent.</p>
 <p>In practice, the size is selected somewhere between 1 and M. When $M &lt;= 2000$, the dataset is supposed to be a small dataset, using Batch Gradient Descent is acceptable. When $M &gt; 2000$, probably Mini-Batch Gradient Descent is a better way to train our model. Typically the mini-batch size could be 64, 128, 256, etc.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png" alt="training process with various batch sizes"></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
@@ -377,7 +377,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0n2hjt0009ygp0ku3c8wc7" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0n3sir000beop0y92dmn8c" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -512,22 +512,6 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
