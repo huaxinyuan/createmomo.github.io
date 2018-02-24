@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-02-24T00:43:42.708Z">
+<meta property="og:updated_time" content="2018-02-24T12:01:34.072Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
@@ -116,6 +116,9 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mini_batch_gradient_descent">Mini-Batch Gradient Descent</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#stochastic_gradient_descent">Stochastic Gradient Descent</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#choosing_mini_batch_size">Choosing Mini-Batch Size</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_momentum">Gradient Descent with Momentum (always faster than SGD)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_rmsprop">Gradient Descent with RMSprop</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#adam">Adam (put Momentum and RMSprop together)</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
@@ -201,6 +204,7 @@
 <p>The symbol $:=$ means the update operation. Obviously, we are updating the value of parameter $W$.</p>
 <p>Usually, we use $\alpha$ to represent the learning rate. It is one of the hyper parameters (we will introduce more hyper parameters in another section) when training a neural network. $J(W)$ is the loss function of our model. $\frac{dJ(W)}{dW}$ is the gradient of parameter $W$. If $W$ is a matrix of parameters(weights), $\frac{dJ(W)}{dW}$ would be a matrix of gradients of each parameter (i.e. $w_{ij}$).</p>
 <p><strong>Question:</strong> <strong>Why we minus the gradients not add them when minimizing the loss function?</strong><br>Answer:<br>For example, our loss function is $J(W)=0.1(W-5)^2$ and it may look like:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png" alt="gradient descent"><br>When $W=10$, the gradient $\frac{dJ(W)}{dW}=0.1*2(10-5)=1$. Obviously, if we are going to find the minimum of $J(W)$, the opposite direction of gradient (e.g. $-\frac{dJ(W)}{dW}$) is the correct direction to find the local lowest point (i.e. $J(W=5)=0$).</p>
+<p>But sometime, gradient descent methods may suffer local optima problem.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h4 id="Computation-Graph"><a href="#Computation-Graph" class="headerlink" title="- Computation Graph"></a><a name="computation_graph"></a>- Computation Graph</h4><p>The computation graph example was learned from the first course of <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.<br>Let’s say we have 3 learnable parameters, $a$, $b$ and $c$. The cost function is $J=3(a+bc)$. Next, we need to compute the parameters’ gradient: $\frac{dJ}{da}$, $\frac{dJ}{db}$ and $\frac{dJ}{dc}$. We also define: $u=bc$, $v=a+u$ and $J=3v$. The computation could be converted into the computation graph below:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png" alt="forward computation"></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
@@ -228,6 +232,14 @@ W^{[l]}=\left(\begin{array}{cc}
 <h4 id="Choosing-Mini-Batch-Size"><a href="#Choosing-Mini-Batch-Size" class="headerlink" title="- Choosing Mini-Batch Size"></a><a name="choosing_mini_batch_size"></a>- Choosing Mini-Batch Size</h4><p>Mini-Batch Size:<br>1) if the size is $M$, the number of examples in the whole train set, the gradient descent is exactly Batch Gradient Descent.<br>2) if the size is 1, it is called Stochastic Gradient Descent.</p>
 <p>In practice, the size is selected somewhere between 1 and M. When $M &lt;= 2000$, the dataset is supposed to be a small dataset, using Batch Gradient Descent is acceptable. When $M &gt; 2000$, probably Mini-Batch Gradient Descent is a better way to train our model. Typically the mini-batch size could be 64, 128, 256, etc.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png" alt="training process with various batch sizes"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Gradient-Descent-with-Momentum-always-faster-than-SGD"><a href="#Gradient-Descent-with-Momentum-always-faster-than-SGD" class="headerlink" title="- Gradient Descent with Momentum (always faster than SGD)"></a><a name="gradient_descent_with_momentum"></a>- Gradient Descent with Momentum (always faster than SGD)</h4><p>On each mini-batch iteration $t$:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Compute $dW$, $db$ on the current mini-batch<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) $V_{dW}=\beta V_{dW}+(1-\beta)dW$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) $V_{db}=\beta V_{db}+(1-\beta)db$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) $W:=W-\alpha V_{dW}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5) $b:=b-\alpha V_{db}$</p>
+<p>The hyper parameters in momentum are $\alpha$(learning rate) and $\beta$. In momentum, $V_{dW}$ is the information of the previous gradients history. If we set $\beta=0.9$, it means we want to take the around last 10 iterations’ gradients into consideration to update parameters.</p>
+<h4 id="Gradient-Descent-with-RMSprop"><a href="#Gradient-Descent-with-RMSprop" class="headerlink" title="- Gradient Descent with RMSprop"></a><a name="gradient_descent_with_rmsprop"></a>- Gradient Descent with RMSprop</h4><p>On each mini-batch iteration $t$:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Compute $dW$, $db$ on the current mini-batch<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) $S_{dW}=\beta S_{dW}+(1-\beta)(dW)^2$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) $S_{db}=\beta S_{db}+(1-\beta)(db)^2$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) $W:=W -\alpha \frac{dW}{\sqrt{S_{dW}}+\epsilon}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5) $b:=b-\alpha \frac{db}{\sqrt{S_{db}}+\epsilon}$</p>
+<h4 id="Adam-put-Momentum-and-RMSprop-together"><a href="#Adam-put-Momentum-and-RMSprop-together" class="headerlink" title="- Adam (put Momentum and RMSprop together)"></a><a name="adam"></a>- Adam (put Momentum and RMSprop together)</h4><p>$V_{dW}=0$,$S_{dW}=0$,$V_{db}=0$,$S_{db}=0$<br>On each mini-batch iteration $t$:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) Compute $dW$, $db$ on the current mini-batch<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Momentum<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) $V_{dW}=\beta_1 V_{dW}+(1-\beta_1)dW$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) $V_{db}=\beta_1 V_{db}+(1-\beta_1)db$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// RMSprop<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) $S_{dW}=\beta_2 S_{dW}+(1-\beta_2)(dW)^2$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5) $S_{db}=\beta_2 S_{db}+(1-\beta_2)(db)^2$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Bias Correction<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6) $V_{dW}^{correct}=\frac{V_{dW}}{1-\beta_1^t}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7) $V_{db}^{correct}=\frac{V_{db}}{1-\beta_1^t}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6) $S_{dW}^{correct}=\frac{S_{dW}}{1-\beta_2^t}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7) $S_{db}^{correct}=\frac{S_{db}}{1-\beta_2^t}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Update Parameters<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$W:=W -\alpha \frac{V_{dW}^{correct}}{\sqrt{S_{dW}^{correct}}+\epsilon}$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$b:=b-\alpha \frac{V_{db}^{correct}}{\sqrt{S_{db}^{correct}}+\epsilon}$</p>
+<p>The “correct” is the concept of <a href="https://www.youtube.com/watch?v=lWzo8CajF5s" target="_blank" rel="external">“Bia Correction”</a> from exponentially weighted average. The correction could make the computation of averages more accurately. $t$ is the power of $\beta$.</p>
+<p>Usually, the default hyper parameter values are: $\beta_1=0.9$, $\beta_2=0.99$ and $\epsilon=10^{-8}$.</p>
+<p>Learning rate $\alpha$ needs to be tune. Alternatively, applying learning rate decay methods could also work well.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
 <table>
@@ -377,7 +389,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0nc266000bbsp0jbyuxlzy" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0ncfq3000bl4p0z2s2keze" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -512,22 +524,6 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

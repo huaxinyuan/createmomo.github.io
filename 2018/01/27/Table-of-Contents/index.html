@@ -14,7 +14,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/27/Table-of-Contents/dog-dl.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/27/Table-of-Contents/dog-mini.png">
-<meta property="og:updated_time" content="2018-02-24T00:39:28.860Z">
+<meta property="og:updated_time" content="2018-02-24T12:00:47.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Table of Contents">
 <meta name="twitter:description" content="TECHNICAL ARTICLES (Last Updated: 24/02/2018) Super Machine Learning Revision Notes Activation Functions Gradient Descent Computation Graph Backpropagation Gradients for L2 Regularization (weight dec">
@@ -97,6 +97,9 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mini_batch_gradient_descent">Mini-Batch Gradient Descent</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#stochastic_gradient_descent">Stochastic Gradient Descent</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#choosing_mini_batch_size">Choosing Mini-Batch Size</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_momentum">Gradient Descent with Momentum (always faster than SGD)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_rmsprop">Gradient Descent with RMSprop</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#adam">Adam (put Momentum and RMSprop together)</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
@@ -144,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/27/Table-of-Contents/" data-id="cje0nc268000cbsp09e03endr" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/27/Table-of-Contents/" data-id="cje0ncfq5000cl4p0ex8z0emq" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/27/Table-of-Contents/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -270,22 +273,6 @@
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
