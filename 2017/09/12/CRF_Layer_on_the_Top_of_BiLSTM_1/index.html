@@ -12,15 +12,15 @@
 <meta property="og:site_name" content="CreateMoMo">
 <meta property="og:description" content="OutlineThe article series will include:  Introduction - the general idea of the CRF layer on the top of BiLSTM for named entity recognition tasks A Detailed Example -  a toy example to explain how CRF">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1.jpg">
-<meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2.jpg">
+<meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1-v2.png">
+<meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2-v2.png">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-3.jpg">
 <meta property="og:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-4.jpg">
-<meta property="og:updated_time" content="2018-02-03T00:55:45.510Z">
+<meta property="og:updated_time" content="2018-02-24T00:32:48.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRF Layer on the Top of BiLSTM - 1">
 <meta name="twitter:description" content="OutlineThe article series will include:  Introduction - the general idea of the CRF layer on the top of BiLSTM for named entity recognition tasks A Detailed Example -  a toy example to explain how CRF">
-<meta name="twitter:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1.jpg">
+<meta name="twitter:image" content="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1-v2.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -114,10 +114,11 @@
 <li><strong>Firstly</strong>, every word in sentence $x$ is represented as a vector which includes the word’s character embedding and word embedding. The character embedding is initialized randomly. The word embedding usually is from a pre-trained word embedding file. All the embeddings will be fine-tuned during the training process.</li>
 <li><strong>Second</strong>, the inputs of BiLSTM-CRF model are those embeddings and the outputs are predicted labels for words in sentence $x$.</li>
 </ul>
-<p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1.jpg" alt="Figure 1.1: BiLSTM-CRF model"></p>
+<p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-1-v2.png" alt="Figure 1.1: BiLSTM-CRF model"></p>
 <p>Although, it is not necessary to know the details of BiLSTM layer, in order to understand the CRF layer more easily, we have to know what is the meaning of the output of BiLSTM Layer.</p>
-<p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2.jpg" alt="Figure 1.2: The meaning of outputs of BiLSTM layer"></p>
+<p><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-2-v2.png" alt="Figure 1.2: The meaning of outputs of BiLSTM layer"></p>
 <p>The picture above illustrates that the outputs of BiLSTM layer are the scores of each label. For example, for $w_0$，the outputs of BiLSTM node are 1.5 (B-Person), 0.9 (I-Person), 0.1 (B-Organization), 0.08 (I-Organization) and 0.05 (O). These scores will be the inputs of the CRF layer.</p>
+<p>Then, all the scores predicted by the BiLSTM blocks are fed into the CRF layer. In the CRF layer, the label sequence which has the highest prediction score would be selected as the best answer.</p>
 <h3 id="1-3-What-if-we-DO-NOT-have-the-CRF-layer"><a href="#1-3-What-if-we-DO-NOT-have-the-CRF-layer" class="headerlink" title="1.3 What if we DO NOT have the CRF layer"></a>1.3 What if we DO NOT have the CRF layer</h3><p>You may have found that, even without the CRF Layer, in other words, we can train a BiLSTM named entity recognition model as shown in the following picture.<br><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-3.jpg" alt="Figure 1.3: The BiLSTM model with out CRF layer output correct labels"><br>Because the outputs of BiLSTM of each word are the label scores. We can select the label which has the highest score for each word.</p>
 <p>For instance, for $w_0$, “B-Person”, has the highest score (1.5), therefore we can select “B-Person” as its best predicted label. In the same way, we can choose “I-Person” for $w_1$, “O” for $w_2$, “B-Organization” for $w_3$ and “O” for $w_4$.</p>
 <p>Although we can get correct labels for sentence $x$ in this example, but it is not always like that. Try again for the following example in the picture below.<br><img src="/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/CRF-LAYER-4.jpg" alt="Figure 1.4: The BiLSTM model with out CRF layer output some invalid label sequences"><br>Obviously, the outputs are invalid this time, “I-Organization I-Person” and “B-Organization I-Person”.</p>
@@ -140,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cjd7savyv0008j4p09qoj6qbd" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/" data-id="cje0n2hjm0007ygp08czjszw0" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/12/CRF_Layer_on_the_Top_of_BiLSTM_1/#disqus_thread" class="article-comment-link">Comments</a>
       

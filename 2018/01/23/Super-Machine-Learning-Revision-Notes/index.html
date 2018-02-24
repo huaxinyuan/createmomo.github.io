@@ -5,27 +5,30 @@
   
   <title>Super Machine Learning Revision Notes | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+  <meta name="description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Super Machine Learning Revision Notes">
 <meta property="og:url" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/index.html">
 <meta property="og:site_name" content="CreateMoMo">
-<meta property="og:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini-batch.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_loss.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-02-03T19:58:36.770Z">
+<meta property="og:updated_time" content="2018-02-24T00:39:51.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
-<meta name="twitter:description" content="[Last Updated: 02/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta name="twitter:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
   
   
@@ -93,7 +96,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Last-Updated-02-02-2018"><a href="#Last-Updated-02-02-2018" class="headerlink" title="[Last Updated: 02/02/2018]"></a>[Last Updated: 02/02/2018]</h3><p>This article aims to summarise:</p>
+        <h3 id="Last-Updated-24-02-2018"><a href="#Last-Updated-24-02-2018" class="headerlink" title="[Last Updated: 24/02/2018]"></a>[Last Updated: 24/02/2018]</h3><p>This article aims to summarise:</p>
 <ul>
 <li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
 <li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
@@ -110,6 +113,9 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#backpropagation">Backpropagation</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradients_for_l2_regularization">Gradients for L2 Regularization (weight decay)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vanishing_exploding_gradients">Vanishing/Exploding Gradients</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mini_batch_gradient_descent">Mini-Batch Gradient Descent</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#stochastic_gradient_descent">Stochastic Gradient Descent</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#choosing_mini_batch_size">Choosing Mini-Batch Size</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
@@ -211,6 +217,17 @@ W^{[l]}=\left(\begin{array}{cc}
 \end{array}\right)</script><p>Based on the simple model above, the final output would be:<br>$y=W^{[l]}W^{[l-1]}W^{[l-2]}…W^{[3]}W^{[2]}W^{[1]}X$</p>
 <p>Because the weight value $1.5&gt;1$, we will get $1.5^L$ in some elements which is explosive. Similarly, if the weight value less than 1.0 (e.g. 0.5), there are some vanishing gradients (e.g. $0.5^L$) somewhere.</p>
 <p><strong>These vanishing/exploding gradients will make training very hard. So carefully initializing weights for deep neural networks is important.</strong></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Mini-Batch-Gradient-Descent"><a href="#Mini-Batch-Gradient-Descent" class="headerlink" title="- Mini-Batch Gradient Descent"></a><a name="#mini_batch_gradient_descent"></a>- Mini-Batch Gradient Descent</h4><p>If we have a huge training dataset, it will take a long time that training a model on a single epoch. It would be hard for us to track the training process. In the mini-batch gradient descent, the cost and gradients are computed based on the training examples in current batch.</p>
+<p>$X$ represents the whole train set and it is divided into several batches as shown below. $m$ is the number of training examples.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini-batch.png" alt="mini-batches of training data X"></p>
+<p>The procedure of mini-batches is as follows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For t= (1, ... , #Batches):</div><div class="line">  Do forward propagation on the t-th batch examples;</div><div class="line">  Compute the cost on the t-th batch examples;</div><div class="line">  Do backward propagation on the t-th batch examples to compute gradients and update parameters.</div></pre></td></tr></table></figure></p>
+<p>During the training process, the cost trend is smoother when we do not apply mini-batch gradient descent than that of using mini-batches to train our model.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_loss.png" alt="cost trend of batch and mini-batch gradient Descent"></p>
+<h4 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="- Stochastic Gradient Descent"></a><a name="#stochastic_gradient_descent"></a>- Stochastic Gradient Descent</h4><p>When the batch size is 1, it is called Stochastic gradient descent.</p>
+<h4 id="Choosing-Mini-Batch-Size"><a href="#Choosing-Mini-Batch-Size" class="headerlink" title="- Choosing Mini-Batch Size"></a><a name="#choosing_mini_batch_size"></a>- Choosing Mini-Batch Size</h4><p>Mini-Batch Size:<br>1) if the size is $M$, the number of examples in the whole train set, the gradient descent is exactly Batch Gradient Descent.<br>2) if the size is 1, it is called Stochastic Gradient Descent.</p>
+<p>In practice, the size is selected somewhere between 1 and M. When $M &lt;= 2000$, the dataset is supposed to be a small dataset, using Batch Gradient Descent is acceptable. When $M &gt; 2000$, probably Mini-Batch Gradient Descent is a better way to train our model. Typically the mini-batch size could be 64, 128, 256, etc.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png" alt="training process with various batch sizes"></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
 <table>
@@ -360,7 +377,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjd7savz5000cj4p0yru5wfzn" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0n2hjt0009ygp0ku3c8wc7" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
