@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Super Machine Learning Revision Notes | CreateMoMo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Super Machine Learning Revision Notes">
+<meta property="og:url" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/index.html">
+<meta property="og:site_name" content="CreateMoMo">
+<meta property="og:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini-batch.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_loss.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
+<meta property="og:updated_time" content="2018-02-24T00:43:42.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Super Machine Learning Revision Notes">
+<meta name="twitter:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">CreateMoMo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://createmomo.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Super-Machine-Learning-Revision-Notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/23/Super-Machine-Learning-Revision-Notes/" class="article-date">
+  <time datetime="2018-01-23T00:00:00.000Z" itemprop="datePublished">2018-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Super Machine Learning Revision Notes
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Last-Updated-24-02-2018"><a href="#Last-Updated-24-02-2018" class="headerlink" title="[Last Updated: 24/02/2018]"></a>[Last Updated: 24/02/2018]</h3><p>This article aims to summarise:</p>
+<ul>
+<li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
+<li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
+<li><strong>practical tips</strong> learned from my own practice and some online courses such as <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.</li>
+</ul>
+<p><strong>If you a student</strong> who is studying machine learning, hope this article could help you to shorten your revision time and bring you useful inspiration. <strong>If you are not a student</strong>, hope this article would be helpful when you cannot recall some models or algorithms.</p>
+<p>Moreover, you can also treat it as a <strong>“Quick Check Guide”</strong>. Please be free to use Ctrl+F to search any key words interested you.</p>
+<p><strong><strong>Any comments and suggestions are most welcome!</strong></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a><a name="tableofcontents"></a>Table of Contents</h2><ul>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#activation_functions">Activation Functions</a></strong></li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent">Gradient Descent</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#computation_graph">Computation Graph</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#backpropagation">Backpropagation</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradients_for_l2_regularization">Gradients for L2 Regularization (weight decay)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vanishing_exploding_gradients">Vanishing/Exploding Gradients</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mini_batch_gradient_descent">Mini-Batch Gradient Descent</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#stochastic_gradient_descent">Stochastic Gradient Descent</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#choosing_mini_batch_size">Choosing Mini-Batch Size</a></li>
+</ul>
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#learnable_and_hyper_parameters">Learnable and Hyper Parameters</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Initialization</a></li>
+</ul>
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#regularization">Regularization</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#l2_regularization">L2 Regularization (weight decay)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#l1_regularization">L1 Regularization</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#dropout">Dropout (inverted dropout)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#early_stopping">Early Stopping</a></li>
+</ul>
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#models">Models</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
+</ul>
+</li>
+<li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#train_dev_test">Train/Dev/Test Dataset</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#input_normalization">Input Normalization</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Activation-Functions"><a href="#Activation-Functions" class="headerlink" title="Activation Functions"></a><a name="activation_functions"></a>Activation Functions</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Function</th>
+<th>Derivative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sigmoid</td>
+<td>$g(z)=\frac{1}{1+e^{-z}}$</td>
+<td>$g(z)(1-g(z))$</td>
+</tr>
+<tr>
+<td>tanh</td>
+<td>$tanh(z)$</td>
+<td>$1-(tanh(z))^2$</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>0, if $z&lt;0$</td>
+</tr>
+<tr>
+<td>Relu</td>
+<td>$max(0,z)$</td>
+<td>1, if $z&gt;0$</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>undefined, if $z=0$</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>0.01, if $z&lt;0$</td>
+</tr>
+<tr>
+<td>Leaky Relu</td>
+<td>$max(0.01z,z)$</td>
+<td>1, if $z&gt;0$</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>undefined, if $z=0$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a><a name="gradient_descent"></a>Gradient Descent</h3><p>Gradient Descent is an iterative method to find the local minimum of an objective function (e.g. loss function).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Repeat&#123;</div><div class="line">    W := W - learning_rate * dJ(W)/dW</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The symbol $:=$ means the update operation. Obviously, we are updating the value of parameter $W$.</p>
+<p>Usually, we use $\alpha$ to represent the learning rate. It is one of the hyper parameters (we will introduce more hyper parameters in another section) when training a neural network. $J(W)$ is the loss function of our model. $\frac{dJ(W)}{dW}$ is the gradient of parameter $W$. If $W$ is a matrix of parameters(weights), $\frac{dJ(W)}{dW}$ would be a matrix of gradients of each parameter (i.e. $w_{ij}$).</p>
+<p><strong>Question:</strong> <strong>Why we minus the gradients not add them when minimizing the loss function?</strong><br>Answer:<br>For example, our loss function is $J(W)=0.1(W-5)^2$ and it may look like:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png" alt="gradient descent"><br>When $W=10$, the gradient $\frac{dJ(W)}{dW}=0.1*2(10-5)=1$. Obviously, if we are going to find the minimum of $J(W)$, the opposite direction of gradient (e.g. $-\frac{dJ(W)}{dW}$) is the correct direction to find the local lowest point (i.e. $J(W=5)=0$).</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Computation-Graph"><a href="#Computation-Graph" class="headerlink" title="- Computation Graph"></a><a name="computation_graph"></a>- Computation Graph</h4><p>The computation graph example was learned from the first course of <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.<br>Let’s say we have 3 learnable parameters, $a$, $b$ and $c$. The cost function is $J=3(a+bc)$. Next, we need to compute the parameters’ gradient: $\frac{dJ}{da}$, $\frac{dJ}{db}$ and $\frac{dJ}{dc}$. We also define: $u=bc$, $v=a+u$ and $J=3v$. The computation could be converted into the computation graph below:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png" alt="forward computation"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Backpropagation"><a href="#Backpropagation" class="headerlink" title="- Backpropagation"></a><a name="backpropagation"></a>- Backpropagation</h4><p>Based on the graph above, it is clear that the gradient of parameters are: $\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}$, $\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}$, $\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}$.<br>Computing the gradients of each node is easy as shown below. (Tips: In fact, if you are implementing your own algorithm, the gradients could be computed during the forward process to save computation resources and training time. Therefore, when you do backpropagation, there is no need to compute the gradients of each node again.)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-2.png" alt="gradient of each node"><br>Now we can compute the gradient of each parameters by simply combine the node gradients:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-3.png" alt="backpropagation"><br>$\frac{dJ}{da}=\frac{dJ}{dv}\frac{dv}{da}=3\times1=3$<br>$\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{db}=3\times1\times2=6$<br>$\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{du}\frac{du}{dc}=3\times1\times3=9$</p>
+<h4 id="Gradients-for-L2-Regularization-weight-decay"><a href="#Gradients-for-L2-Regularization-weight-decay" class="headerlink" title="- Gradients for L2 Regularization (weight decay)"></a><a name="gradients_for_l2_regularization"></a>- Gradients for L2 Regularization (weight decay)</h4><p>The gradients is changed a bit by adding $\frac{\lambda}{m}W$.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Repeat&#123;</div><div class="line">    W := W - (lambda/m) * W - learning_rate * dJ(W)/dW</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Vanishing-Exploding-Gradients"><a href="#Vanishing-Exploding-Gradients" class="headerlink" title="- Vanishing/Exploding Gradients"></a><a name="vanishing_exploding_gradients"></a>- Vanishing/Exploding Gradients</h4><p>If we have a very deep neural network and we did not initialize weight properly, we may suffer gradients vanishing or exploding problems. (More details about parameter initialization: <a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters_initialization">Parameters Initialization</a>)</p>
+<p>In order to explain what is the vanishing or exploding gradients problems, a simple but deep neural network architecture will be taken as an example. (Again, the great example is from the online course <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>)</p>
+<p>The neural network has $L$ layers. For simplicity, the parameter $b^{[l]}$ for each layer is 0 and all the activation functions are $g(z)=z$. In addition, every parameter $W^{[l]}$ has the same values.</p>
+<script type="math/tex; mode=display">
+W^{[l]}=\left(\begin{array}{cc}
+1.5 & 0\\
+0 & 1.5
+\end{array}\right)</script><p>Based on the simple model above, the final output would be:<br>$y=W^{[l]}W^{[l-1]}W^{[l-2]}…W^{[3]}W^{[2]}W^{[1]}X$</p>
+<p>Because the weight value $1.5&gt;1$, we will get $1.5^L$ in some elements which is explosive. Similarly, if the weight value less than 1.0 (e.g. 0.5), there are some vanishing gradients (e.g. $0.5^L$) somewhere.</p>
+<p><strong>These vanishing/exploding gradients will make training very hard. So carefully initializing weights for deep neural networks is important.</strong></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Mini-Batch-Gradient-Descent"><a href="#Mini-Batch-Gradient-Descent" class="headerlink" title="- Mini-Batch Gradient Descent"></a><a name="mini_batch_gradient_descent"></a>- Mini-Batch Gradient Descent</h4><p>If we have a huge training dataset, it will take a long time that training a model on a single epoch. It would be hard for us to track the training process. In the mini-batch gradient descent, the cost and gradients are computed based on the training examples in current batch.</p>
+<p>$X$ represents the whole train set and it is divided into several batches as shown below. $m$ is the number of training examples.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini-batch.png" alt="mini-batches of training data X"></p>
+<p>The procedure of mini-batches is as follows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For t= (1, ... , #Batches):</div><div class="line">  Do forward propagation on the t-th batch examples;</div><div class="line">  Compute the cost on the t-th batch examples;</div><div class="line">  Do backward propagation on the t-th batch examples to compute gradients and update parameters.</div></pre></td></tr></table></figure></p>
+<p>During the training process, the cost trend is smoother when we do not apply mini-batch gradient descent than that of using mini-batches to train our model.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_loss.png" alt="cost trend of batch and mini-batch gradient Descent"></p>
+<h4 id="Stochastic-Gradient-Descent"><a href="#Stochastic-Gradient-Descent" class="headerlink" title="- Stochastic Gradient Descent"></a><a name="stochastic_gradient_descent"></a>- Stochastic Gradient Descent</h4><p>When the batch size is 1, it is called Stochastic gradient descent.</p>
+<h4 id="Choosing-Mini-Batch-Size"><a href="#Choosing-Mini-Batch-Size" class="headerlink" title="- Choosing Mini-Batch Size"></a><a name="choosing_mini_batch_size"></a>- Choosing Mini-Batch Size</h4><p>Mini-Batch Size:<br>1) if the size is $M$, the number of examples in the whole train set, the gradient descent is exactly Batch Gradient Descent.<br>2) if the size is 1, it is called Stochastic Gradient Descent.</p>
+<p>In practice, the size is selected somewhere between 1 and M. When $M &lt;= 2000$, the dataset is supposed to be a small dataset, using Batch Gradient Descent is acceptable. When $M &gt; 2000$, probably Mini-Batch Gradient Descent is a better way to train our model. Typically the mini-batch size could be 64, 128, 256, etc.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mini_batch_gradient.png" alt="training process with various batch sizes"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Learnable Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$W, b$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Hyper Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>learning rate $\alpha$</td>
+</tr>
+<tr>
+<td>the number of iterations</td>
+</tr>
+<tr>
+<td>the number of hidden layers $L$</td>
+</tr>
+<tr>
+<td>the number of hidden units of each layer</td>
+</tr>
+<tr>
+<td>choice of activation function</td>
+</tr>
+<tr>
+<td>parameters of Momentum</td>
+</tr>
+<tr>
+<td>mini batch size</td>
+</tr>
+<tr>
+<td>parameters of regularization</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Parameters-Initialization"><a href="#Parameters-Initialization" class="headerlink" title="- Parameters Initialization"></a><a name="parameters_initialization"></a>- Parameters Initialization</h4><p>(<strong>Note:</strong> Actually, the machine learning frameworks (e.g. tensorflow, chainer etc.) have already provided robust parameter initialization functions.)</p>
+<h5 id="Small-Initial-Values"><a href="#Small-Initial-Values" class="headerlink" title="Small Initial Values"></a><em>Small Initial Values</em></h5><p>For example, when we initialize the parameter $W$, we time a small value (i.e. 0.01) to ensure the initial parameters are small:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">W = numpy.random.randn(shape) * 0.01</div></pre></td></tr></table></figure></p>
+<p>The reason for doing this is, if you are using sigmoid function and your initial parameters are large, the gradients would be very small.</p>
+<h5 id="More-Hidden-Units-Smaller-Weights"><a href="#More-Hidden-Units-Smaller-Weights" class="headerlink" title="More Hidden Units, Smaller Weights"></a><em>More Hidden Units, Smaller Weights</em></h5><p>Similarly, we will use pseudo-code to show how various initialization methods work. The idea is we prefer to assign smaller values to parameters to prevent the training phrase from vanishing or exploding gradients, if the number of hidden units is larger. The figure below may provide you some insights to understand the idea.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png" alt="z"></p>
+<p>Based on the abovementioned idea, we could time the weights with a term related to the number of hidden units.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">W = numpy.random.randn(shape) * numpy.sqrt(1/n[l-1])</div></pre></td></tr></table></figure>
+<p>The equation of the multiplied term is $\sqrt{\frac{1}{n^{[l-1]}}}$. $n^{[l-1]}$ is the number of hidden units in the previous layer.</p>
+<p>If you are using Relu activation function, using the term $\sqrt{\frac{2}{n^{[l-1]}}}$ could work better.</p>
+<h5 id="Xavier-Initialization"><a href="#Xavier-Initialization" class="headerlink" title="Xavier Initialization"></a><em>Xavier Initialization</em></h5><p>If your activation function is $\tanh$, Xavier initialization ( $\sqrt{\frac{1}{n^{[l-1]}}}$ or $\sqrt{\frac{2}{n^{[l-1]} + n^{[l]}}}$) would be a good choice.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Regularization"><a href="#Regularization" class="headerlink" title="Regularization"></a><a name="regularization"></a>Regularization</h3><p>Regularization is a way to prevent overfitting problem in machine learning. An additional regularization term would be added to the loss function.</p>
+<h4 id="L2-Regularization-weight-decay"><a href="#L2-Regularization-weight-decay" class="headerlink" title="- L2 Regularization (weight decay)"></a><a name="l2_regularization"></a>- L2 Regularization (weight decay)</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W||_2^2$</p>
+<p>In the new loss function, $\frac{\lambda}{2m}||W||_2^2$ is the regularization term and $\lambda$ is the regularization parameter (a hyper parameter). L2 regularization is also called weight decay.</p>
+<p>For the logistic regression model, $W$ is a vector (i.e. the dimension of $W$ is the same as the feature vector), the regularization term would be:</p>
+<p>$||W||_{2}^2=\sum_{j=1}^{dimension}W_{j}^2$.</p>
+<p>For a neural network model which has multiple layers (e.g. $L$ layers), there are multiple parameter matrixes between layers. The shape of each matrix $W$ is $(n^{[l]}, n^{[l-1]})$. In the equation, $l$ is the $l^{th}$ layer and $n^{[l]}$ is the number of hidden units in layer $l$. Therefore, the L2 regularization term would be:</p>
+<p>$\frac{\lambda}{2m}\sum_{l=1}^L||W^l||_2^2$</p>
+<p>$||W^l||_{2}^2=\sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}(W_{ij}^l)^2$ (also called Frobenius norm).</p>
+<h4 id="L1-Regularization"><a href="#L1-Regularization" class="headerlink" title="- L1 Regularization"></a><a name="l1_regularization"></a>- L1 Regularization</h4><p>$\min J(W,b)=\frac{1}{m}\sum_{i=1}^mL(\hat{y}^i,y^i)+\frac{\lambda}{2m}||W^l||$</p>
+<p>$||W^l||=\sum_{i=1}^{n^{[l-1]}}\sum_{j=1}^{n^{[l]}}W_{ij}^l$.</p>
+<p>If we use L1 regularization, the parameters $W$ would be sparse.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Dropout-inverted-dropout"><a href="#Dropout-inverted-dropout" class="headerlink" title="- Dropout (inverted dropout)"></a><a name="dropout"></a>- Dropout (inverted dropout)</h4><p>To understand dropout intuitively, dropout regularization aims to make the supervised model more robust. In the training phrase, some output values of activation functions will be ignored. Therefore, when making predictions, the model will not rely on any one feature.</p>
+<p>In dropout regularization, the hyper parameter “keep probability” describes the chance to active a hidden unit. Therefore, if a hidden layer has $n$ units and the probability is $p$, around $p \times n$ units will be activated and around $(1-p)\times n$ units will be shut off.</p>
+<p><strong>Example:</strong><br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png" alt="dropout example"></p>
+<p>As shown above, 2 units of 2nd layer are dropped. Therefore, the value of linear combination of 3rd layer (i.e. $z^{[3]=}W^{[3]}a^{[2]}+b^{[3]}$) will decrease. In order not to reduce the expect value of $z$, we should adjust the value of $a^{[2]}$ by dividing the keep probability. That is: $a^{[2]} := \frac{a^{[2]}}{p}$</p>
+<p><strong>!Note:</strong> When making predictions at test time, there is <strong>NO NEED</strong> to use dropout regularization.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Early-Stopping"><a href="#Early-Stopping" class="headerlink" title="- Early Stopping"></a><a name="early_stopping"></a>- Early Stopping</h4><p>Using early stopping to prevent the model from overfitting.<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png" alt="early stopping"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Models"><a href="#Models" class="headerlink" title="Models"></a><a name="models"></a>Models</h3><h4 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="- Logistic Regression"></a><a name="logistic-regression"></a>- Logistic Regression</h4><p>Given the feature vector of an instance $x$, the output of logistic regression model is $p(y=1|x)$. Therefore, the probability $p(y=0|x)=1-p(y=1|x)$. In a logistic regression, the learnable parameters are $W$ and $b$.</p>
+<script type="math/tex; mode=display">
+p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value of $W^Tx+b$ and y-axis is $p(y=1|x)$. (The picture is download from <a href="https://en.wikipedia.org/wiki/Sigmoid_function" target="_blank" rel="external">wikipedia</a>)<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png" alt="logistic curve"><br><strong>Loss function</strong> for one training instance $(x^i,y^i)$:</p>
+<script type="math/tex; mode=display">
+L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$\hat{y}^i$ is the prediction and $y^i$ is true answer.<br><strong>Cost Function</strong> for the whole train dataset ($m$ is the number of examples in the training dataset):</p>
+<script type="math/tex; mode=display">J(W,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^i,y^i)</script><p><strong>Minimizing the cost function is actually maximizing the likelihood of data.</strong><br>$LogLikelihood=\sum_{i=1}^{m}logP(y^i|x^i)=\sum_{i=1}^{m}log(\hat{y}^y(1-\hat{y})^{1-y})=-\sum_{i=1}^{m}L(\hat{y}^i,y^i)$</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
+<li>Usually, we use 70% of a dataset as training data and 30% as test set; or 60%(train)/20%(dev)/20%(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000) and make the sizes of dev and test set equally (e.g. 10,000 for dev and 10,000 for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
+<li>Make sure the dev and test set come from the same distribution</li>
+</ul>
+<h4 id="Over-UnderFitting-Bias-Variance-Solutions"><a href="#Over-UnderFitting-Bias-Variance-Solutions" class="headerlink" title="- Over/UnderFitting, Bias/Variance, Solutions"></a><a name="over_and_under_fitting"></a>- Over/UnderFitting, Bias/Variance, Solutions</h4><p>For a classification task, the human classification error is supposed to be around 0%. The analysis of various possible performances of the supervised model on the both training and dev set is as shown below.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training Set Error</td>
+<td>1%</td>
+<td>15%</td>
+<td>15%</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>Test Set Error</td>
+<td>11%</td>
+<td>16%</td>
+<td>30%</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>overfitting</td>
+<td>underfitting</td>
+<td>underfitting</td>
+<td>good</td>
+</tr>
+<tr>
+<td></td>
+<td>high variance</td>
+<td>high bias</td>
+<td>high bias and variance</td>
+<td>low bias and variance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Solutions</strong>:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png" alt="solutions for high bias and variance"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Input-Normalization"><a href="#Input-Normalization" class="headerlink" title="- Input Normalization"></a><a name="input_normalization"></a>- Input Normalization</h4><p>We have a train set including $m$ examples. $X^{(i)}$ represents the $i^{th}$ exmaple. The inputs normalization is as follows.</p>
+<p>$X:=\frac{X-\mu}{\sigma^2}$,<br>$\mu=\frac{1}{m}\sum_{i=1}^mX^{(i)}$,<br>$\sigma^2=\frac{1}{m}\sum_{i=1}^m(X^{(i)})^2$</p>
+<p><strong>!Note:</strong> MUST use the same $\mu$ and $\sigma^2$ of training data to normalize the test dataset.</p>
+<p>Using input normalization could make training faster.</p>
+<p>Suppose the inputs are two dimensional, $X = [X_1, X_2]$. The ranges are [1-1000] and [1-10] of $X_1$ and $X_2$ respectively. The loss function may look like this (left):<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png" alt="left:non-normalized right: normalized"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje0n92sl000938p0o6oju76t" class="article-share-link">Share</a>
+      
+        <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/27/Table-of-Contents/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Table of Contents
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/17/My-Life/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">My Life</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/27/Table-of-Contents/">Table of Contents</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/23/Super-Machine-Learning-Revision-Notes/">Super Machine Learning Revision Notes</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/17/My-Life/">My Life</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/">CRF Layer on the Top of BiLSTM - 8</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/06/CRF-Layer-on-the-Top-of-BiLSTM-7/">CRF Layer on the Top of BiLSTM - 7</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 CreateMoMo<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'createmomo';
+  
+  var disqus_url = 'http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
