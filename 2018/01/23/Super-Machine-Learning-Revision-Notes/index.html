@@ -5,12 +5,12 @@
   
   <title>Super Machine Learning Revision Notes | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+  <meta name="description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Super Machine Learning Revision Notes">
 <meta property="og:url" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/index.html">
 <meta property="og:site_name" content="CreateMoMo">
-<meta property="og:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
@@ -31,16 +31,17 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/softmax_regression.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/transfer_learning.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-03-03T19:50:49.336Z">
+<meta property="og:updated_time" content="2018-03-03T22:57:02.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
-<meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
 <meta name="twitter:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
   
   
@@ -111,7 +112,7 @@
         <h3 id="Last-Updated-03-03-2018"><a href="#Last-Updated-03-03-2018" class="headerlink" title="[Last Updated: 03/03/2018]"></a>[Last Updated: 03/03/2018]</h3><p>This article aims to summarise:</p>
 <ul>
 <li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
-<li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
+<li><strong>different algorithms and various popular models</strong></li>
 <li>some <strong>practical tips</strong> and <strong>examples</strong> were learned from my own practice and some online courses such as <a href="https://www.deeplearning.ai/" target="_blank" rel="external">Deep Learning AI</a>.</li>
 </ul>
 <p><strong>If you a student</strong> who is studying machine learning, hope this article could help you to shorten your revision time and bring you useful inspiration. <strong>If you are not a student</strong>, hope this article would be helpful when you cannot recall some models or algorithms.</p>
@@ -152,6 +153,11 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#multiclass_classification">Multi-Class Classification (Softmax Regression)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#transfer_learning">Transfer Learning</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#multitask_learning">Multi-task Learning</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#convolutional_neural_network">Convolutional Neural Network (CNN)</a><ul>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#filter_kernel">Filter/Kernel</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
@@ -159,7 +165,7 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Comparing to Human-Level Performance, Solutions</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mismatched_data_distribution">Mismatched Data Distribution</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#input_normalization">Input Normalization</a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#single_number_model_evaluation_metric">Use a Single Number Model Evaluation metric</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#single_number_model_evaluation_metric">Use a Single Number Model Evaluation Metric</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#error_analysis">Error Analysis (Prioritize Next Steps)</a></li>
 </ul>
 </li>
@@ -519,9 +525,51 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 <p>The softmax activation is as follows.<br>1) $z^{[L]}=[z^{[L]}_0, z^{[L]}_1, z^{[L]}_2]$</p>
 <p>2) $a^{[L]}=[\frac{e^{z^{[L]}_0}}{e^{z^{[L]}_0}+ e^{z^{[L]}_1}+e^{z^{[L]}_2}}, \frac{e^{z^{[L]}_1}}{e^{z^{[L]}_0}+e^{z^{[L]}_1}+ e^{z^{[L]}_2}}, \frac{e^{z^{[L]}_2}}{e^{z^{[L]}_0}+ e^{z^{[L]}_1}+e^{z^{[L]}_2}}]$<br>$=[p(class=0|x),p(class=1|x),p(class=2|x)]$<br>$=[y_0,y_1,y_2]$</p>
 <h5 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a><em>Loss Function</em></h5><p>$LossFunction=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y^i},y^i)$<br>$L(\hat{y},y)=-\sum_j^{3}y_j^i\log\hat{y_j^i}$</p>
-<p>$m$ is the number of train instances. $j$ is the i-th class.</p>
+<p>$m$ is the number of train instances. $j$ is the j-th class.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="Transfer-Learning"><a href="#Transfer-Learning" class="headerlink" title="- Transfer Learning"></a><a name="transfer_learning"></a>- Transfer Learning</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Transfer-Learning"><a href="#Transfer-Learning" class="headerlink" title="- Transfer Learning"></a><a name="transfer_learning"></a>- Transfer Learning</h4><p>If we have a large amount of training data or our neural network is very big, it is time-consuming (e.g. a few days or weeks) for us to train such a model. Fortunately, there are some models released and available publicly. Usually, these models were trained on huge amount of data.</p>
+<p>The idea of transfer learning is we can download these pre-trained models and adjust their models to our own problem as shown below.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/transfer_learning.png" alt="transfer_learning"></p>
+<p>If we have a lot of data, we can re-train the whole neural network. On the other hand, if we have a small train set, we can retrain the last or last few layers (e.g. the last two layers).</p>
+<p><strong>In which situation we can use transfer learning?</strong><br>Assume:<br>the pre-trained model is for task A and our own model is for task B.</p>
+<ul>
+<li>The two tasks should have the same input format</li>
+<li>For task A, we have a lot of training data. But for task B, the size of data size is much smaller</li>
+<li>The low level features learnt from task A could be helpful for training the model for task B.</li>
+</ul>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Multi-task-Learning"><a href="#Multi-task-Learning" class="headerlink" title="- Multi-task Learning"></a><a name="multitask_learning"></a>- Multi-task Learning</h4><p>In a classification task, usually each instance only have one correct label as show below. The i-th instance only corresponds to the second class.</p>
+<script type="math/tex; mode=display">
+y^{(i)} =
+\begin{pmatrix}
+
+0\\
+1\\
+0\\
+0\\
+0
+
+\end{pmatrix}</script><p>However, in a multitask learning, one instance may have multiple labels.</p>
+<script type="math/tex; mode=display">
+y^{(i)} =
+\begin{pmatrix}
+
+0\\
+1\\
+1\\
+1\\
+0
+
+\end{pmatrix}</script><p>In the task, the loss function is:<br>$LossFunction=\frac{1}{m}\sum_{i=1}^{m}\sum_{j=1}^5 L(\hat{y^i_j},y^i_j)$<br>$L(\hat{y_j^i},y_j^i)=-y_j^i\log \hat{y_j}-(1-y_j^i)\log (1-y_j^i)$</p>
+<p>$m$ is the number of train instances. $j$ is the j-th class.</p>
+<p><strong>Tips for multi-task learning:</strong></p>
+<ul>
+<li>The multi-tasks learning model may share lower-level features</li>
+<li>we may can try a big enough neural network to work well on all the tasks</li>
+<li>In the train set, the amount of instances of each task is similar</li>
+</ul>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Convolutional-Neural-Network-CNN"><a href="#Convolutional-Neural-Network-CNN" class="headerlink" title="- Convolutional Neural Network (CNN)"></a><a name="convolutional_neural_network"></a>- Convolutional Neural Network (CNN)</h4><h5 id="Filter-Kernel"><a href="#Filter-Kernel" class="headerlink" title=" Filter/Kernel"></a><a name="convolutional_neural_network"></a> Filter/Kernel</h5><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
 <li>Usually, we use <strong>70%</strong> of a dataset as training data and 30% as test set; or <strong>60%</strong>(train)/<strong>20%</strong>(dev)/<strong>20%</strong>(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000, <strong>98%</strong>) and make the sizes of dev and test set equally (e.g. 10,000 (<strong>1%</strong>) for dev and 10,000 (<strong>1%</strong>) for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
@@ -793,7 +841,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje1s5iqp000cxwp0806ciqhq" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjebw8swg000csgp0ffcd5xvh" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
