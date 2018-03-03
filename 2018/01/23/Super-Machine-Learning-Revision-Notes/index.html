@@ -5,12 +5,12 @@
   
   <title>Super Machine Learning Revision Notes | CreateMoMo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+  <meta name="description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Super Machine Learning Revision Notes">
 <meta property="og:url" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/index.html">
 <meta property="og:site_name" content="CreateMoMo">
-<meta property="og:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta property="og:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/computation_graph-1.png">
@@ -22,6 +22,7 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/learning_rate_decay_methods.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/learning_rate_decay_methods_epoch.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/discrete_stair_case.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/batch_normalization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/weight_init.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/hyper_parameter_tuning.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/hyper_parameter_tuning_units_and_layers.png">
@@ -29,12 +30,17 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/dropout.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/early_stopping.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
-<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/softmax_regression.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-02-24T19:45:45.647Z">
+<meta property="og:updated_time" content="2018-03-03T19:50:49.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
-<meta name="twitter:description" content="[Last Updated: 24/02/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
+<meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models (e.g. Logis">
 <meta name="twitter:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/gradient_descent_smaller.png">
   
   
@@ -102,7 +108,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Last-Updated-24-02-2018"><a href="#Last-Updated-24-02-2018" class="headerlink" title="[Last Updated: 24/02/2018]"></a>[Last Updated: 24/02/2018]</h3><p>This article aims to summarise:</p>
+        <h3 id="Last-Updated-03-03-2018"><a href="#Last-Updated-03-03-2018" class="headerlink" title="[Last Updated: 03/03/2018]"></a>[Last Updated: 03/03/2018]</h3><p>This article aims to summarise:</p>
 <ul>
 <li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
 <li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
@@ -126,6 +132,7 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_rmsprop">Gradient Descent with RMSprop</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#adam">Adam (put Momentum and RMSprop together)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#learning_rate_decay_methods">Learning Rate Decay Methods</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#batch_normalization">Batch Normalization</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
@@ -143,12 +150,17 @@
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#models">Models</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#multiclass_classification">Multi-Class Classification (Softmax Regression)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#transfer_learning">Transfer Learning</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#train_dev_test">Train/Dev/Test Dataset</a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Comparing to Human-Level Performance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mismatched_data_distribution">Mismatched Data Distribution</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#input_normalization">Input Normalization</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#single_number_model_evaluation_metric">Use a Single Number Model Evaluation metric</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#error_analysis">Error Analysis (Prioritize Next Steps)</a></li>
 </ul>
 </li>
 </ul>
@@ -319,6 +331,15 @@ W^{[l]}=\left(\begin{array}{cc}
 </tbody>
 </table>
 </div>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="- Batch Normalization"></a><a name="batch_normalization"></a>- Batch Normalization</h4><h5 id="Batch-Normalization-at-Train-Time"><a href="#Batch-Normalization-at-Train-Time" class="headerlink" title="Batch Normalization at Train Time"></a><em>Batch Normalization at Train Time</em></h5><p>Using batch normalization could speed up training.</p>
+<p>The procedure is as follows.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/batch_normalization.png" alt="Batch Normalization"></p>
+<p>The details of batch normalization in each layer $l$ is:</p>
+<p>$\mu=\frac{1}{m}\sum Z^{(i)}$<br>$\delta^2=\frac{1}{m}\sum (Z^{(i)}-\mu)$<br>$Z^{(i)}_{normalized}=\alpha \frac{Z^{(i)}\mu}{\sqrt{\delta^2}+\epsilon} +\beta$</p>
+<p>$\alpha$ and $\beta$ are learnable parameters here.</p>
+<h5 id="Batch-Normalization-at-Test-Time"><a href="#Batch-Normalization-at-Test-Time" class="headerlink" title="Batch Normalization at Test Time"></a><em>Batch Normalization at Test Time</em></h5><p>At test time, we do not have the instances to compute $\mu$<br> and $\delta$, because probably we only have one test instance at each time.</p>
+<p> In this situation, it is a good idea that estimating  reasonable values of $\mu$ and $delta$ by using exponentially weighted average across mini-batches.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Paramters"><a href="#Paramters" class="headerlink" title="Paramters"></a><a name="parameters"></a>Paramters</h3><h4 id="Learnable-and-Hyper-Parameters"><a href="#Learnable-and-Hyper-Parameters" class="headerlink" title="- Learnable and Hyper Parameters"></a><a name="learnable_and_hyper_parameters"></a>- Learnable and Hyper Parameters</h4><div class="table-container">
 <table>
@@ -493,11 +514,25 @@ p(y=1|x)=\sigma(W^Tx+b)=(1+e^{-W^Tx-b})^{-1}</script><p>The x-axis is the value 
 L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$\hat{y}^i$ is the prediction and $y^i$ is true answer.<br><strong>Cost Function</strong> for the whole train dataset ($m$ is the number of examples in the training dataset):</p>
 <script type="math/tex; mode=display">J(W,b)=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y}^i,y^i)</script><p><strong>Minimizing the cost function is actually maximizing the likelihood of data.</strong><br>$LogLikelihood=\sum_{i=1}^{m}logP(y^i|x^i)=\sum_{i=1}^{m}log(\hat{y}^y(1-\hat{y})^{1-y})=-\sum_{i=1}^{m}L(\hat{y}^i,y^i)$</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Multi-Class-Classification-Softmax-Regression"><a href="#Multi-Class-Classification-Softmax-Regression" class="headerlink" title="- Multi-Class Classification (Softmax Regression)"></a><a name="multiclass_classification"></a>- Multi-Class Classification (Softmax Regression)</h4><p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/softmax_regression.png" alt="Softmax Regression"><br>The softmax regression generalizes logistic regression (binary classification) to multiple classes (multi-class classification).</p>
+<p>As shown in the figure above, it is a 3-class classification neural network. In the last layer, a softmax activation function is used. The outputs are the probabilities of each class.</p>
+<p>The softmax activation is as follows.<br>1) $z^{[L]}=[z^{[L]}_0, z^{[L]}_1, z^{[L]}_2]$</p>
+<p>2) $a^{[L]}=[\frac{e^{z^{[L]}_0}}{e^{z^{[L]}_0}+ e^{z^{[L]}_1}+e^{z^{[L]}_2}}, \frac{e^{z^{[L]}_1}}{e^{z^{[L]}_0}+e^{z^{[L]}_1}+ e^{z^{[L]}_2}}, \frac{e^{z^{[L]}_2}}{e^{z^{[L]}_0}+ e^{z^{[L]}_1}+e^{z^{[L]}_2}}]$<br>$=[p(class=0|x),p(class=1|x),p(class=2|x)]$<br>$=[y_0,y_1,y_2]$</p>
+<h5 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a><em>Loss Function</em></h5><p>$LossFunction=\frac{1}{m}\sum_{i=1}^{m}L(\hat{y^i},y^i)$<br>$L(\hat{y},y)=-\sum_j^{3}y_j^i\log\hat{y_j^i}$</p>
+<p>$m$ is the number of train instances. $j$ is the i-th class.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Transfer-Learning"><a href="#Transfer-Learning" class="headerlink" title="- Transfer Learning"></a><a name="transfer_learning"></a>- Transfer Learning</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
-<li>Usually, we use 70% of a dataset as training data and 30% as test set; or 60%(train)/20%(dev)/20%(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000) and make the sizes of dev and test set equally (e.g. 10,000 for dev and 10,000 for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
+<li>Usually, we use <strong>70%</strong> of a dataset as training data and 30% as test set; or <strong>60%</strong>(train)/<strong>20%</strong>(dev)/<strong>20%</strong>(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000, <strong>98%</strong>) and make the sizes of dev and test set equally (e.g. 10,000 (<strong>1%</strong>) for dev and 10,000 (<strong>1%</strong>) for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
 </ul>
-<h4 id="Over-UnderFitting-Bias-Variance-Solutions"><a href="#Over-UnderFitting-Bias-Variance-Solutions" class="headerlink" title="- Over/UnderFitting, Bias/Variance, Solutions"></a><a name="over_and_under_fitting"></a>- Over/UnderFitting, Bias/Variance, Solutions</h4><p>For a classification task, the human classification error is supposed to be around 0%. The analysis of various possible performances of the supervised model on the both training and dev set is as shown below.</p>
+<p><strong>Another situation</strong> we maybe in is:<br>1) we want to build a system for a specific domain, but we only have a few labelled dataset in that domain (e.g. 10,000)<br>2) we can get a much larger dataset (e.g. 200,000 instances) from similar tasks.</p>
+<p>In this case, how to build our train, dev and test set?</p>
+<p>The easiest way is just combine the two datasets and shuffle it. Then we can divide the combined datasets into three parts (train, dev and test set). BUT it is not a good idea. Because our goal is to build a system for our own specific domain. There is no point that adding some instances which is not from our own domain into the dev/test dataset to evaluate our system.</p>
+<p>The reasonable method is:<br>1) all the instances (e.g. 200,000) which are available more easily are added into the training set<br>2) Pick some instances from the specific domain datasets and add them into the training set<br>3) Divide the remain instances of our own domain into dev and test set</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png" alt="dataset"></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Over-UnderFitting-Bias-Variance-Comparing-to-Human-Level-Performance-Solutions"><a href="#Over-UnderFitting-Bias-Variance-Comparing-to-Human-Level-Performance-Solutions" class="headerlink" title="- Over/UnderFitting, Bias/Variance, Comparing to Human-Level Performance, Solutions"></a><a name="over_and_under_fitting"></a>- Over/UnderFitting, Bias/Variance, Comparing to Human-Level Performance, Solutions</h4><h5 id="Over-UnderFitting-Bias-Variance"><a href="#Over-UnderFitting-Bias-Variance" class="headerlink" title="Over/UnderFitting, Bias/Variance"></a><em>Over/UnderFitting, Bias/Variance</em></h5><p>For a classification task, the human classification error is supposed to be around 0%. The analysis of various possible performances of the supervised model on the both training and dev set is as shown below.</p>
 <div class="table-container">
 <table>
 <thead>
@@ -510,6 +545,13 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Human-Level Error</td>
+<td>0.9%</td>
+<td>0.9%</td>
+<td>0.9%</td>
+<td>0.9%</td>
+</tr>
 <tr>
 <td>Training Set Error</td>
 <td>1%</td>
@@ -541,7 +583,103 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 </tbody>
 </table>
 </div>
-<p><strong>Solutions</strong>:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_1.png" alt="solutions for high bias and variance"></p>
+<p><strong>Solutions</strong>:<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png" alt="solutions for high bias and variance"></p>
+<h5 id="Comparing-to-Human-Level-Performance"><a href="#Comparing-to-Human-Level-Performance" class="headerlink" title="Comparing to Human-Level Performance"></a><em>Comparing to Human-Level Performance</em></h5><p>You may have noticed that, in the table above, the human-level error was set 0.9%, what if the human-level performances are different but the train/dev errors are the same?</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Human-Level Error</td>
+<td><strong>1%</strong></td>
+<td><strong>7.5%</strong></td>
+</tr>
+<tr>
+<td>Training Set Error</td>
+<td>8%</td>
+<td>8%</td>
+</tr>
+<tr>
+<td>Test Set Error</td>
+<td>10%</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>high bias</td>
+<td>high variance</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Although the model errors are the same, in the left case where the human error is 1%, we have the problem of high bias and have the high variance problem in the right case.</p>
+<p>As for the performance of model, sometimes it could work better than that of human. But so long as the model performance is worse than human’s, we can:<br>1) get more labelled data from humans<br>2) gain insights from manual error analysis<br>3) gain insights from bias/variance analysis</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Mismatched-Data-Distribution"><a href="#Mismatched-Data-Distribution" class="headerlink" title="- Mismatched Data Distribution"></a><a name="mismatched_data_distribution"></a>- Mismatched Data Distribution</h4><p>When we are building a system for our own specific domain, we only have a few labelled instances (e.g. 10,000) for our own problem. But it is easy for us to collect a lot of instances (e.g. 200,000) from another similar domain. Moreover, the large amount of easily available instances could be helpful to train a good model. The dataset may look like this:</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png" alt="dataset"></p>
+<p>But in this case, the data distribution of training set is different with dev/test set. This may cause side effects - data mismatch problem.</p>
+<p>In order to check whether we have the data mismatch problem, we should randomly pick up a subset of training set as a validation set named train-dev dataset. This set has the same distribution of training set, but will not be used for training.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png" alt="dataset"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Human-Level Error</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Train Error</td>
+<td>1%</td>
+<td>1%</td>
+<td>10%</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>Train-Dev Error</td>
+<td>9%</td>
+<td>1.5%</td>
+<td>11%</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>Dev Error</td>
+<td>10%</td>
+<td>10%</td>
+<td>12%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>Problem</td>
+<td>high variance</td>
+<td>data mismatch</td>
+<td>high bias</td>
+<td>high bias + data mismatch</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To summarize:</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png" alt="measure of different problems"></p>
+<h5 id="Addressing-the-Mismatch-Data-Distribution-Problem"><a href="#Addressing-the-Mismatch-Data-Distribution-Problem" class="headerlink" title="Addressing the Mismatch Data Distribution Problem"></a><em>Addressing the Mismatch Data Distribution Problem</em></h5><p>Firstly, making a manually error analysis to try to understand what is the difference between our training set and dev/test set.</p>
+<p>Secondly, according to the analysis result, we can try to make the training instances more similar to the dev/test instances. We can also try to collect more training data similar to the data distribution of dev/test set.</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h4 id="Input-Normalization"><a href="#Input-Normalization" class="headerlink" title="- Input Normalization"></a><a name="input_normalization"></a>- Input Normalization</h4><p>We have a train set including $m$ examples. $X^{(i)}$ represents the $i^{th}$ exmaple. The inputs normalization is as follows.</p>
 <p>$X:=\frac{X-\mu}{\sigma^2}$,<br>$\mu=\frac{1}{m}\sum_{i=1}^mX^{(i)}$,<br>$\sigma^2=\frac{1}{m}\sum_{i=1}^m(X^{(i)})^2$</p>
@@ -549,11 +687,113 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 <p>Using input normalization could make training faster.</p>
 <p>Suppose the inputs are two dimensional, $X = [X_1, X_2]$. The ranges are [1-1000] and [1-10] of $X_1$ and $X_2$ respectively. The loss function may look like this (left):<br><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png" alt="left:non-normalized right: normalized"></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Use-a-Single-Number-Model-Evaluation-Metric"><a href="#Use-a-Single-Number-Model-Evaluation-Metric" class="headerlink" title="- Use a Single Number Model Evaluation Metric"></a><a name="single_number_model_evaluation_metric"></a>- Use a Single Number Model Evaluation Metric</h4><p>If we not only care about the performance of model (e.g. accuracy, F-score etc.), but also the running time, we can design a single number evaluation metric to evaluate our model.</p>
+<p>For example, we can combine the performance metric and running time such as $metric=accuracy-0.5*RunningTime$.</p>
+<p>Alternatively, we can also specify the maximal running time we can accept:<br>$max: accuracy$<br>$subject: RunningTime &lt;= 100ms$</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Error-Analysis-Prioritize-Next-Steps"><a href="#Error-Analysis-Prioritize-Next-Steps" class="headerlink" title="- Error Analysis (Prioritize Next Steps)"></a><a name="error_analysis"></a>- Error Analysis (Prioritize Next Steps)</h4><p>Doing error analysis is very helpful to prioritize next steps for improving the model performance.</p>
+<h5 id="Carrying-Out-Error-Analysis"><a href="#Carrying-Out-Error-Analysis" class="headerlink" title="Carrying Out Error Analysis"></a><em>Carrying Out Error Analysis</em></h5><p>For example, in order to find out why the model mislabelled some instances, we can get around 100 <strong>mislabelled</strong> examples from the dev set and make an error analysis (manually check them one by one).</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Dog</th>
+<th>Big Cat</th>
+<th>Blurry</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>$\surd$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td>$\surd$</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td>$\surd$</td>
+<td>$\surd$</td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>percentage</td>
+<td>8%</td>
+<td>43%</td>
+<td>61%</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>By manually checking these mislabelled instances one by one, we can estimate where are the errors from. For example, in the abovementioned table, we found 61% images are blurry, therefore in the next step, we can mainly focus to improve the performance in blurry images recognition.</p>
+<h5 id="Cleaning-Up-Incorrectly-Labelled-Data"><a href="#Cleaning-Up-Incorrectly-Labelled-Data" class="headerlink" title="Cleaning Up Incorrectly Labelled Data"></a><em>Cleaning Up Incorrectly Labelled Data</em></h5><p>Sometimes, our dataset is noisy. In other words, there are some incorrect labels in the dataset. Similarly, we can pick up around 100 instances from dev/test set and manually check them one by one.</p>
+<p>For example, currently the model error on dev/test set is 10%. Then we manually check the randomly picked 100 instances from the dev/test set.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Incorrect Label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>$\surd$</td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>$\surd$</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>percentage</td>
+<td>6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s say, finally we found 6% instances were labelled incorrectly. Based on it, we can guess around $10\%*6\%=0.6\%$ errors due incorrect labels and $9.4\%$ errors due other reasons.</p>
+<p>Therefore, if we focus on correcting labels maybe not a good idea in the next step.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje1s4rs4000cbgp03bpl09xk" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje1s5iqp000cxwp0806ciqhq" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       

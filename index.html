@@ -82,7 +82,7 @@
       
         <hr>
 <h4 id="TECHNICAL-ARTICLES"><a href="#TECHNICAL-ARTICLES" class="headerlink" title="TECHNICAL ARTICLES"></a><strong><em>TECHNICAL ARTICLES</em></strong></h4><ul>
-<li><strong>(Last Updated: 24/02/2018) <a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Super Machine Learning Revision Notes</a></strong><ul>
+<li><strong>(Last Updated: 03/03/2018) <a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Super Machine Learning Revision Notes</a></strong><ul>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#activation_functions">Activation Functions</a></strong></li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent">Gradient Descent</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#computation_graph">Computation Graph</a></li>
@@ -96,6 +96,7 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#gradient_descent_with_rmsprop">Gradient Descent with RMSprop</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#adam">Adam (put Momentum and RMSprop together)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#learning_rate_decay_methods">Learning Rate Decay Methods</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#batch_normalization">Batch Normalization</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#parameters">Parameters</a></strong><ul>
@@ -113,12 +114,17 @@
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#models">Models</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#logistic-regression">Logistic Regression</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#multiclass_classification">Multi-Class Classification (Softmax Regression)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#transfer_learning">Transfer Learning</a></li>
 </ul>
 </li>
 <li><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tips">Practical Tips</a></strong><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#train_dev_test">Train/Dev/Test Dataset</a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#over_and_under_fitting">Over/UnderFitting, Bias/Variance, Comparing to Human-Level Performance, Solutions</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#mismatched_data_distribution">Mismatched Data Distribution</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#input_normalization">Input Normalization</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#single_number_model_evaluation_metric">Use a Single Number Model Evaluation metric</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#error_analysis">Error Analysis (Prioritize Next Steps)</a></li>
 </ul>
 </li>
 </ul>
@@ -144,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/27/Table-of-Contents/" data-id="cje1s4rs1000bbgp0tuajpjks" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/27/Table-of-Contents/" data-id="cje1s5iqa000bxwp0a7atos1f" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/27/Table-of-Contents/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -178,7 +184,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Last-Updated-24-02-2018"><a href="#Last-Updated-24-02-2018" class="headerlink" title="[Last Updated: 24/02/2018]"></a>[Last Updated: 24/02/2018]</h3><p>This article aims to summarise:</p>
+        <h3 id="Last-Updated-03-03-2018"><a href="#Last-Updated-03-03-2018" class="headerlink" title="[Last Updated: 03/03/2018]"></a>[Last Updated: 03/03/2018]</h3><p>This article aims to summarise:</p>
 <ul>
 <li><strong>basic concepts</strong> in machine learning (e.g. gradient descent, back propagation etc.)</li>
 <li><strong>different algorithms and various popular models</strong> (e.g. Logistic Regression, RNN, CNN, GAN, VAE etc.)</li>
@@ -195,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje1s4rs4000cbgp03bpl09xk" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cje1s5iqp000cxwp0806ciqhq" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -244,7 +250,8 @@
 </ul>
 </li>
 <li><strong>TV Series &amp; Movies</strong><ul>
-<li><em>[2018.01.27 - ]</em> <strong><a href="http://www.bbc.co.uk/programmes/b018ttws/episodes/guide" target="_blank" rel="external">Sherlock</a></strong></li>
+<li><em>[2018.03.02 - ]</em> <strong><a href="https://en.wikipedia.org/wiki/The_Big_Bang_Theory" target="_blank" rel="external">The Big Bang Theory</a></strong></li>
+<li><em>[2018.01.27 - 2018.03.01]</em> <strong><a href="http://www.bbc.co.uk/programmes/b018ttws/episodes/guide" target="_blank" rel="external">Sherlock</a></strong></li>
 <li><em>[2016.04.13 - 2018.01.26]</em> <strong><a href="https://en.wikipedia.org/wiki/Downton_Abbey" target="_blank" rel="external">Downton Abbey</a></strong></li>
 <li><em>[2015.04.01 - 2017.05.26]</em> <strong><a href="https://en.wikipedia.org/wiki/The_Vampire_Diaries" target="_blank" rel="external">the Vampire Diaries</a></strong></li>
 </ul>
@@ -264,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/17/My-Life/" data-id="cje1s4rrt0008bgp079rmdt22" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/17/My-Life/" data-id="cje1s5ips0006xwp0rljcoo63" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/17/My-Life/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -307,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/" data-id="cje1s4rr10005bgp092a6c4v6" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/" data-id="cje1s5ipw0007xwp06elrcrg6" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/12/07/CRF-Layer-on-the-Top-of-BiLSTM-8/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -350,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/12/06/CRF-Layer-on-the-Top-of-BiLSTM-7/" data-id="cje1s4rqu0003bgp0rt75b64d" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/12/06/CRF-Layer-on-the-Top-of-BiLSTM-7/" data-id="cje1s5ipn0004xwp0pfvqr6o6" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/12/06/CRF-Layer-on-the-Top-of-BiLSTM-7/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -394,7 +401,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/11/24/CRF-Layer-on-the-Top-of-BiLSTM-6/" data-id="cje1s4rqn0002bgp0edtn2sfx" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/11/24/CRF-Layer-on-the-Top-of-BiLSTM-6/" data-id="cje1s5iph0002xwp0o0fsn054" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/11/24/CRF-Layer-on-the-Top-of-BiLSTM-6/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -438,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cje1s4rqy0004bgp0nbe6uvpi" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/" data-id="cje1s5ip50000xwp0raqjxgh3" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/11/11/CRF-Layer-on-the-Top-of-BiLSTM-5/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -484,7 +491,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" data-id="cje1s4rq10000bgp099v9p5pr" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/" data-id="cje1s5ipp0005xwp0wf5jido4" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/10/17/CRF-Layer-on-the-Top-of-BiLSTM-4/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -576,7 +583,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cje1s4rqf0001bgp0wrphycgx" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/" data-id="cje1s5ipb0001xwp06pnqsl6m" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/10/08/CRF-Layer-on-the-Top-of-BiLSTM-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -627,7 +634,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cje1s4rrb0007bgp0s43t1vfw" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/" data-id="cje1s5iq40008xwp0wdskt28a" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2017/09/23/CRF_Layer_on_the_Top_of_BiLSTM_2/#disqus_thread" class="article-comment-link">Comments</a>
       
