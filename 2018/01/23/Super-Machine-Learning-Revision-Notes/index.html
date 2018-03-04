@@ -32,13 +32,18 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/sigmoid.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/softmax_regression.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/transfer_learning.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_2d.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_2d_2_filters.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_3d_2_filters.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_stride.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_padding.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-03-03T22:59:40.370Z">
+<meta property="og:updated_time" content="2018-03-04T17:27:13.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
@@ -156,6 +161,16 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#multitask_learning">Multi-task Learning</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#convolutional_neural_network">Convolutional Neural Network (CNN)</a><ul>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#filter_kernel">Filter/Kernel</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#stride">Stride</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#padding">Padding (valid and same convolutions)</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#a_convolutional_layer">A Convolutional Layer</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#1_1_convolution">1*1 Convolution</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#pooling_layer">Pooling Layer</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#lenet_5">LeNet-5</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#alexnet">AlexNet</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vgg_16">VGG-16 </a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#resnet">ResNet </a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#resnet">Inception Network </a></li>
 </ul>
 </li>
 </ul>
@@ -529,7 +544,7 @@ L(\hat{y}^i,y^i)=-[y^i\log{\hat{y}^i} + (1-y^i)\log{(1-\hat{y}^i)}]</script><p>$
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h4 id="Transfer-Learning"><a href="#Transfer-Learning" class="headerlink" title="- Transfer Learning"></a><a name="transfer_learning"></a>- Transfer Learning</h4><p>If we have a large amount of training data or our neural network is very big, it is time-consuming (e.g. a few days or weeks) for us to train such a model. Fortunately, there are some models released and available publicly. Usually, these models were trained on huge amount of data.</p>
 <p>The idea of transfer learning is we can download these pre-trained models and adjust their models to our own problem as shown below.</p>
-<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/transfer_learning.png" alt="transfer_learning"></p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/transfer_learning.png" alt="transfer learning"></p>
 <p>If we have a lot of data, we can re-train the whole neural network. On the other hand, if we have a small train set, we can retrain the last or last few layers (e.g. the last two layers).</p>
 <p><strong>In which situation we can use transfer learning?</strong><br>Assume:<br>the pre-trained model is for task A and our own model is for task B.</p>
 <ul>
@@ -569,7 +584,23 @@ y^{(i)} =
 <li>In the train set, the amount of instances of each task is similar</li>
 </ul>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="Convolutional-Neural-Network-CNN"><a href="#Convolutional-Neural-Network-CNN" class="headerlink" title="- Convolutional Neural Network (CNN)"></a><a name="convolutional_neural_network"></a>- Convolutional Neural Network (CNN)</h4><h5 id="Filter-Kernel"><a href="#Filter-Kernel" class="headerlink" title=" Filter/Kernel"></a><a name="filter_kernel"></a> Filter/Kernel</h5><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Convolutional-Neural-Network-CNN"><a href="#Convolutional-Neural-Network-CNN" class="headerlink" title="- Convolutional Neural Network (CNN)"></a><a name="convolutional_neural_network"></a>- Convolutional Neural Network (CNN)</h4><h5 id="Filter-Kernel"><a href="#Filter-Kernel" class="headerlink" title=" Filter/Kernel"></a><a name="filter_kernel"></a> Filter/Kernel</h5><p>For example, we have a $3*3$ filter (also called kernel) and the picture below describes how a filter/kernel works on a 2D input. The size of the input $x$ is $6*6$ and the size of the output when applying the filter/kernel is $4*4$.</p>
+<p>The parameters (e.g. $w_1, w_2, …$) in filters/kernels are learnable.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_2d.png" alt="CNN on 2D data"></p>
+<p>What is more, we can have multiple filters at the same time as shown below.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_2d_2_filters.png" alt="CNN on 2D data with 2 filters"></p>
+<p>Similarly, if the input is a volume which has 3 dimensions, we can also have a 3D filter. In this filter, there are 27 learnable parameters.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_3d_2_filters.png" alt="CNN on 3D data"></p>
+<p>Usually, the width of filter is odd (e.g. $1*1$, $3*3$, $5*5$, …)<br><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Stride"><a href="#Stride" class="headerlink" title="- Stride"></a><a name="stride"></a>- Stride</h4><p>Stride describes the step size of filter. It will affect the output size.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_stride.png" alt="stride"></p>
+<p>It should be noticed that some input elements are ignored. This problem can be solved by padding.<br><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Padding-valid-and-same-convolutions"><a href="#Padding-valid-and-same-convolutions" class="headerlink" title="- Padding (valid and same convolutions)"></a><a name="padding"></a>- Padding (valid and same convolutions)</h4><p>As describe above, valid convolution is the convolution when we do not use padding.</p>
+<p>Same convolution is we can use padding to extend the original input by filling zeros so that the output size is the same as the input size.</p>
+<p>For example, the input size is $6*6$, and the filter is $3*3$. If we set stride=1 and padding=1, we can get the output with the same size as input.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_padding.png" alt="padding"></p>
+<p>Generally, if the filter size is f*f, the input is n*n, stride=s, then the final output size is:<br>$(\lfloor \frac{n+2p-f}{s} \rfloor+1) \times (\lfloor \frac{n+2p-f}{s} \rfloor+1)$</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
 <li>Usually, we use <strong>70%</strong> of a dataset as training data and 30% as test set; or <strong>60%</strong>(train)/<strong>20%</strong>(dev)/<strong>20%</strong>(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000, <strong>98%</strong>) and make the sizes of dev and test set equally (e.g. 10,000 (<strong>1%</strong>) for dev and 10,000 (<strong>1%</strong>) for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
@@ -841,7 +872,7 @@ y^{(i)} =
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjebz4k64000ck8p08y8ff1pp" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjecr1ez0000bmwp05jxo5l9r" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
