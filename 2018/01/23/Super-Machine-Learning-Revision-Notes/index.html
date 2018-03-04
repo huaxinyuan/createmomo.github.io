@@ -37,13 +37,15 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_3d_2_filters.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_stride.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_padding.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_1_convolutional_layer.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_pooling_layer.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-03-04T17:27:13.187Z">
+<meta property="og:updated_time" content="2018-03-04T22:10:06.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
@@ -165,7 +167,7 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#padding">Padding (valid and same convolutions)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#a_convolutional_layer">A Convolutional Layer</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#1_1_convolution">1*1 Convolution</a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#pooling_layer">Pooling Layer</a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#pooling_layer">Pooling Layer (Max and Average Pooling)</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#lenet_5">LeNet-5</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#alexnet">AlexNet</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vgg_16">VGG-16 </a></li>
@@ -591,7 +593,9 @@ y^{(i)} =
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_2d_2_filters.png" alt="CNN on 2D data with 2 filters"></p>
 <p>Similarly, if the input is a volume which has 3 dimensions, we can also have a 3D filter. In this filter, there are 27 learnable parameters.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_on_3d_2_filters.png" alt="CNN on 3D data"></p>
-<p>Usually, the width of filter is odd (e.g. $1*1$, $3*3$, $5*5$, …)<br><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<p>Usually, the width of filter is odd (e.g. $1*1$, $3*3$, $5*5$, …)</p>
+<p>The idea of filter is if it is useful in one part of the input, probably it is also useful for another part of the input. Moreover, each output value of a convolutional layer output values only depends on a small number of inputs.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h4 id="Stride"><a href="#Stride" class="headerlink" title="- Stride"></a><a name="stride"></a>- Stride</h4><p>Stride describes the step size of filter. It will affect the output size.</p>
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_stride.png" alt="stride"></p>
 <p>It should be noticed that some input elements are ignored. This problem can be solved by padding.<br><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
@@ -601,6 +605,18 @@ y^{(i)} =
 <p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_padding.png" alt="padding"></p>
 <p>Generally, if the filter size is f*f, the input is n*n, stride=s, then the final output size is:<br>$(\lfloor \frac{n+2p-f}{s} \rfloor+1) \times (\lfloor \frac{n+2p-f}{s} \rfloor+1)$</p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="A-Convolutional-Layer"><a href="#A-Convolutional-Layer" class="headerlink" title="- A Convolutional Layer"></a><a name="a_convolutional_layer"></a>- A Convolutional Layer</h4><p>In fact, we also apply activation functions on a convolutional layer such as the Relu activation function.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_1_convolutional_layer.png" alt="one convolutional layer with relu activation functions"></p>
+<p>As for the number of parameters, for a filter, there are 27(parameters of filter) +1 (bias) =28 parameters totally.</p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="1-1-Convolution"><a href="#1-1-Convolution" class="headerlink" title="- 1*1 Convolution"></a><a name="1_1_convolution"></a>- 1*1 Convolution</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Pooling-Layer-Max-and-Average-Pooling"><a href="#Pooling-Layer-Max-and-Average-Pooling" class="headerlink" title="- Pooling Layer (Max and Average Pooling)"></a><a name="pooling_layer"></a>- Pooling Layer (Max and Average Pooling)</h4><p>The pooling layer (e.g. max pooling or average pooling layer) could be considered as a special kind filter.</p>
+<p>The max pooling layer returns the maximum number of the area which the filter currently covers. Similarly, the average pooling layers returns the average value of all the numbers in that area.</p>
+<p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_pooling_layer.png" alt="max and average pooling layer"></p>
+<p>In the picture, $f$ is the filter width and $s$ is the value of stride.</p>
+<p><strong>Note: In a pooling layer, there is no learnable parameter.</strong></p>
+<p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="- LeNet-5"></a><a name="lenet_5"></a>- LeNet-5</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
 <li>Usually, we use <strong>70%</strong> of a dataset as training data and 30% as test set; or <strong>60%</strong>(train)/<strong>20%</strong>(dev)/<strong>20%</strong>(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000, <strong>98%</strong>) and make the sizes of dev and test set equally (e.g. 10,000 (<strong>1%</strong>) for dev and 10,000 (<strong>1%</strong>) for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
@@ -872,7 +888,7 @@ y^{(i)} =
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjecr1ez0000bmwp05jxo5l9r" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjed9pbcy000b7wp0kq6oynl7" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -1007,22 +1023,6 @@ y^{(i)} =
 
 <script src="/js/script.js"></script>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
