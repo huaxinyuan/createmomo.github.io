@@ -39,13 +39,16 @@
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn_padding.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_1_convolutional_layer.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_pooling_layer.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_lenet_5.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_alexnet.png">
+<meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_vgg_16.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/solutions_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_train_and_dev_test.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_data_distribution_2.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/mismatch_summarization.png">
 <meta property="og:image" content="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/normalization.png">
-<meta property="og:updated_time" content="2018-03-04T22:10:06.177Z">
+<meta property="og:updated_time" content="2018-03-05T00:11:51.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Super Machine Learning Revision Notes">
 <meta name="twitter:description" content="[Last Updated: 03/03/2018]This article aims to summarise:  basic concepts in machine learning (e.g. gradient descent, back propagation etc.) different algorithms and various popular models some practi">
@@ -172,7 +175,7 @@
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#alexnet">AlexNet</a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#vgg_16">VGG-16 </a></li>
 <li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#resnet">ResNet </a></li>
-<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#resnet">Inception Network </a></li>
+<li><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#inception_network">Inception Network </a></li>
 </ul>
 </li>
 </ul>
@@ -616,7 +619,11 @@ y^{(i)} =
 <p>In the picture, $f$ is the filter width and $s$ is the value of stride.</p>
 <p><strong>Note: In a pooling layer, there is no learnable parameter.</strong></p>
 <p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
-<h4 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="- LeNet-5"></a><a name="lenet_5"></a>- LeNet-5</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="- LeNet-5"></a><a name="lenet_5"></a>- LeNet-5</h4><p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_lenet_5.png" alt="LeNet-5"><br>(around 60k parameters in the model)</p>
+<h4 id="AlexNet"><a href="#AlexNet" class="headerlink" title="- AlexNet"></a><a name="alexnet"></a>- AlexNet</h4><p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_alexnet.png" alt="AlexNet"><br>(around 60m parameters in the model; Relu activation function was used;)</p>
+<h4 id="VGG-16"><a href="#VGG-16" class="headerlink" title="- VGG-16"></a><a name="vgg_16"></a>- VGG-16</h4><p><img src="/2018/01/23/Super-Machine-Learning-Revision-Notes/cnn2_vgg_16.png" alt="VGG-16"><br>(around 138m parameters in the model; all the filters $f=3$, $s=1$ and using same padding; in the max pooling layer, $f=2$ and $s=2$)<br><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="ResNet"><a href="#ResNet" class="headerlink" title="- ResNet"></a><a name="resnet"></a>- ResNet</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
+<h4 id="Inception-Network"><a href="#Inception-Network" class="headerlink" title="- Inception Network"></a><a name="inception_network"></a>- Inception Network</h4><p><strong><a href="https://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#tableofcontents">Back to Table of Contents</a></strong></p>
 <h3 id="Practical-Tips"><a href="#Practical-Tips" class="headerlink" title="Practical Tips"></a><a name="tips"></a>Practical Tips</h3><h4 id="Train-Dev-Test-Dataset"><a href="#Train-Dev-Test-Dataset" class="headerlink" title="- Train/Dev/Test Dataset"></a><a name="train_dev_test"></a>- Train/Dev/Test Dataset</h4><ul>
 <li>Usually, we use <strong>70%</strong> of a dataset as training data and 30% as test set; or <strong>60%</strong>(train)/<strong>20%</strong>(dev)/<strong>20%</strong>(test). But if we have a big dataset, we can use most of the instances as training data (e.g. 1,000,000, <strong>98%</strong>) and make the sizes of dev and test set equally (e.g. 10,000 (<strong>1%</strong>) for dev and 10,000 (<strong>1%</strong>) for test set). Because our dataset is big, 10,000 examples in dev and test set are more than enough.</li>
 <li>Make sure the dev and test set come from the same distribution</li>
@@ -888,7 +895,7 @@ y^{(i)} =
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjedcp5x5000b9kp0ni11kb5x" class="article-share-link">Share</a>
+      <a data-url="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/" data-id="cjedcr7ni000c14p019xu1eui" class="article-share-link">Share</a>
       
         <a href="http://createmomo.github.io/2018/01/23/Super-Machine-Learning-Revision-Notes/#disqus_thread" class="article-comment-link">Comments</a>
       
